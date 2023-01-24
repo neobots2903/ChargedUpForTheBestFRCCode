@@ -35,16 +35,16 @@ public class Teleop2903 extends CommandBase {
   @Override
   public void execute() {
     // Robot.shoot2903.checkLimits();
-    boolean indexerPressed = Robot.opJoy.getRawButton(buttonRB); // index brings balls in
-    boolean intakePressed = Robot.opJoy.getRawButton(buttonRB); // wheels brings ball in
-    boolean intakeRevPressed = Robot.opJoy.getRawButton(buttonLB);// wheels bring ball out
-    boolean intakeInPressed = Robot.opJoy.getRawButton(buttonY); // it comes in
-    boolean intakeOutPressed = Robot.opJoy.getRawButton(buttonB); // it goes out
-    boolean shootPressed = Robot.opJoy.getRawButton(buttonX); // Shoots the balls
-    boolean autoAimPressed = Robot.driveJoy.getRawButton(buttonB); // auto shoot/aim and drive
-    // boolean indexRevPressed = Robot.opJoy.getRawButton(buttonA); //index brings
-    // balls out
-    double upPress = Robot.opJoy.getRawAxis(leftY); // pos shooter
+    boolean indexerPressed = Robot.opJoy.getRawButton(buttonRB); // Index brings balls in
+    boolean intakePressed = Robot.opJoy.getRawButton(buttonRB); // Wheels brings ball in
+    boolean intakeRevPressed = Robot.opJoy.getRawButton(buttonLB); // Wheels bring ball out
+    boolean intakeInPressed = Robot.opJoy.getRawButton(buttonY); // It comes in
+    boolean intakeOutPressed = Robot.opJoy.getRawButton(buttonB); // It goes out
+    boolean shootPressed = Robot.opJoy.getRawButton(buttonX); // Shoots the balls (pretty sus)
+    boolean autoAimPressed = Robot.driveJoy.getRawButton(buttonB); // Auto shoot/aim and drive
+    // boolean indexRevPressed = Robot.opJoy.getRawButton(buttonA); // Index brings
+    // Balls out (pretty sus)
+    double upPress = Robot.opJoy.getRawAxis(leftY); // Pos shooter
     Robot.shoot2903.limits();
     Robot.limelight2903.getTA();
     Robot.limelight2903.getTV();
@@ -57,9 +57,11 @@ public class Teleop2903 extends CommandBase {
         Robot.shoot2903.resetShoot();
         shootPressedLocked = true;
       }
+
       Robot.shoot2903.teleShoot(3000, 1);
     } else {
       shootPressedLocked = false;
+
       if (intakeRevPressed) {
         Robot.intake2903.indexer(-.50);
         Robot.shoot2903.shoot(0.5);
@@ -120,6 +122,7 @@ public class Teleop2903 extends CommandBase {
     double climbDown = Robot.opJoy.getRawAxis(lt);
     // System.out.println("Climb Power: " + (climbUp - climbDown));
     Robot.climb2903.setPower(climbUp - climbDown);
+    
     if (upPress < -.2) {
       Robot.shoot2903.setAngle(Robot.shoot2903.getTargetBoom() + 1);
     } else if (upPress > .2) {
