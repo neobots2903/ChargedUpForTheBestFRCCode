@@ -5,7 +5,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.RobotMap;
 
 public class Climb2903 {
-    public CANSparkMax climb;
+    public CANSparkMax climb ;
 
     public Climb2903() {
         climb = new CANSparkMax(RobotMap.climb, MotorType.kBrushed);
