@@ -15,7 +15,6 @@ public class Auto2903 extends CommandBase {
   @Override
   public void initialize() {
     running = true;
-    Robot.shoot2903.initPivot();
     startTime = System.currentTimeMillis();
 
   }
@@ -23,7 +22,6 @@ public class Auto2903 extends CommandBase {
   @Override
   public void execute() {
     Robot.drive2903.distanceDrive(30, -.2);
-    Robot.shoot2903.setAngle(-20);
 
     // while(running){
     // if (Robot.limelight2903.getTV()){
@@ -46,7 +44,6 @@ public class Auto2903 extends CommandBase {
     // }
     // }
     // }
-    Robot.shoot2903.shootForTime(4000, 2500, 1);
     Robot.drive2903.distanceDrive(30, -.2);
     cancel();
   }

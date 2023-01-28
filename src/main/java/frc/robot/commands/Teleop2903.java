@@ -21,7 +21,6 @@ public class Teleop2903 extends CommandBase {
   int buttonRB = 6;
   int buttonLB = 5;
   double error = 0.5;
-  boolean shootPressedLocked = false;
 
   public Teleop2903() {
 
@@ -30,47 +29,19 @@ public class Teleop2903 extends CommandBase {
 
   @Override
   public void execute() {
-    // Robot.shoot2903.checkLimits();
-    boolean indexerPressed = Robot.opJoy.getRawButton(buttonRB); // Index brings balls in
     boolean intakePressed = Robot.opJoy.getRawButton(buttonRB); // Wheels brings ball in
     boolean intakeRevPressed = Robot.opJoy.getRawButton(buttonLB); // Wheels bring ball out
     boolean intakeInPressed = Robot.opJoy.getRawButton(buttonY); // It comes in
     boolean intakeOutPressed = Robot.opJoy.getRawButton(buttonB); // It goes out
-    boolean shootPressed = Robot.opJoy.getRawButton(buttonX); // Shoots the balls (pretty sus)
-    boolean autoAimPressed = Robot.driveJoy.getRawButton(buttonB); // Auto shoot/aim and drive
+// Shoots the balls (pretty sus)
     // boolean indexRevPressed = Robot.opJoy.getRawButton(buttonA); // Index brings
     // Balls out (pretty sus)
-    double upPress = Robot.opJoy.getRawAxis(leftY); // Pos shooter
+
     Robot.limelight2903.getTA();
     Robot.limelight2903.getTV();
     Robot.limelight2903.getTX();
     Robot.limelight2903.getTY();
-    
-    if (autoAimPressed) {
-      if (Robot.limelight2903.getTV()) {
-        if (Robot.limelight2903.getTX() > error) {
-          Robot.drive2903.arcadeDrive(0, .07);
-        } else if (Robot.limelight2903.getTX() < -error) {
-          Robot.drive2903.arcadeDrive(0, -.07);
-        } else {
-          Robot.drive2903.arcadeDrive(0, 0);
-        }
-      }
-    } else {
-      double driveBackPower = Robot.driveJoy.getRawAxis(lt);
-      double driveForwardPower = Robot.driveJoy.getRawAxis(rt);
-      double turnPower = Robot.driveJoy.getRawAxis(rightX);
-      Robot.drive2903.arcadeDrive(driveForwardPower - driveBackPower, turnPower);
-    }
 
-    // if (indexerPressed){
-    // Robot.intake2903.indexer(.50);
-    // Robot.shoot2903.shoot(-.10);
-    // } else if (indexRevPressed) {
-    // Robot.intake2903.indexer(-.50);
-    // } else {
-    // Robot.intake2903.indexer(0);
-    // }
 
     if (intakeInPressed) {
       Robot.intake2903.intakeIn(0.75);
@@ -86,17 +57,6 @@ public class Teleop2903 extends CommandBase {
       Robot.intake2903.intakeRev(.75);
     } else {
       Robot.intake2903.intake(0);
-    }
-
-    double climbUp = Robot.opJoy.getRawAxis(rt);
-    double climbDown = Robot.opJoy.getRawAxis(lt);
-    // System.out.println("Climb Power: " + (climbUp - climbDown));
-    Robot.climb2903.setPower(climbUp - climbDown);
-    
-    if (upPress < -.2) {
-      Robot.shoot2903.setAngle(Robot.shoot2903.getTargetBoom() + 1);
-    } else if (upPress > .2) {
-      Robot.shoot2903.setAngle(Robot.shoot2903.getTargetBoom() - 1);
     }
   }
 
