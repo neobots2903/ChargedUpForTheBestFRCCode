@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 // import frc.robot.commands.Auto2903;
 import frc.robot.commands.Teleop2903;
 import frc.robot.subsystems.Drive2903;
-import frc.robot.subsystems.Intake2903;
 import frc.robot.subsystems.Limelight2903;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
@@ -28,7 +27,6 @@ public class Robot extends TimedRobot {
     public static Drive2903 drive2903;
     public static Joystick driveJoy;
     public static Joystick opJoy;
-    public static Intake2903 intake2903; 
     public static UsbCamera camera; 
 
     /**
@@ -41,7 +39,6 @@ public class Robot extends TimedRobot {
         // autonomous chooser on the dashboard.
         driveJoy = new Joystick(RobotMap.driveJoy);
         opJoy = new Joystick(RobotMap.opJoy);
-        intake2903 = new Intake2903(); 
         limelight2903 = new Limelight2903();
         drive2903 = new Drive2903();
         teleop = new Teleop2903();

@@ -22,19 +22,9 @@ public class Teleop2903 extends CommandBase {
   int buttonLB = 5;
   double error = 0.5;
 
-  public Teleop2903() {
-
-  }
-
-
   @Override
   public void execute() {
-    boolean intakePressed = Robot.opJoy.getRawButton(buttonRB); // Wheels brings ball in
-    boolean intakeRevPressed = Robot.opJoy.getRawButton(buttonLB); // Wheels bring ball out
-    boolean intakeInPressed = Robot.opJoy.getRawButton(buttonY); // It comes in
-    boolean intakeOutPressed = Robot.opJoy.getRawButton(buttonB); // It goes out
-// Shoots the balls (pretty sus)
-    // boolean indexRevPressed = Robot.opJoy.getRawButton(buttonA); // Index brings
+     // Shoots the balls (pretty sus)
     // Balls out (pretty sus)
 
     Robot.limelight2903.getTA();
@@ -43,21 +33,6 @@ public class Teleop2903 extends CommandBase {
     Robot.limelight2903.getTY();
 
 
-    if (intakeInPressed) {
-      Robot.intake2903.intakeIn(0.75);
-    } else if (intakeOutPressed) {
-      Robot.intake2903.intakeOut(0.75);
-    } else {
-      Robot.intake2903.intakeIn(0);
-    }
-
-    if (intakePressed) {
-      Robot.intake2903.intake(.75);
-    } else if (intakeRevPressed) {
-      Robot.intake2903.intakeRev(.75);
-    } else {
-      Robot.intake2903.intake(0);
-    }
   }
 
   @Override
