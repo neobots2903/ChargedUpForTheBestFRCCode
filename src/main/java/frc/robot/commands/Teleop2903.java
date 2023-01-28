@@ -27,10 +27,6 @@ public class Teleop2903 extends CommandBase {
 
   }
 
-  @Override
-  public void initialize() {
-    Robot.shoot2903.initPivot();
-  }
 
   @Override
   public void execute() {
@@ -45,37 +41,11 @@ public class Teleop2903 extends CommandBase {
     // boolean indexRevPressed = Robot.opJoy.getRawButton(buttonA); // Index brings
     // Balls out (pretty sus)
     double upPress = Robot.opJoy.getRawAxis(leftY); // Pos shooter
-    Robot.shoot2903.limits();
     Robot.limelight2903.getTA();
     Robot.limelight2903.getTV();
     Robot.limelight2903.getTX();
     Robot.limelight2903.getTY();
-
-    // System.out.println("Shoot angle DEGREES: " + pivotDegrees);
-    if (shootPressed) {
-      if (!shootPressedLocked) {
-        Robot.shoot2903.resetShoot();
-        shootPressedLocked = true;
-      }
-
-      Robot.shoot2903.teleShoot(3000, 1);
-    } else {
-      shootPressedLocked = false;
-
-      if (intakeRevPressed) {
-        Robot.intake2903.indexer(-.50);
-        Robot.shoot2903.shoot(0.5);
-      } else {
-        if (intakePressed) {
-          Robot.intake2903.indexer(.50);
-          Robot.shoot2903.shoot(-.5);
-        } else {
-          Robot.intake2903.indexer(0);
-          Robot.shoot2903.shoot(0);
-        }
-      }
-    }
-
+    
     if (autoAimPressed) {
       if (Robot.limelight2903.getTV()) {
         if (Robot.limelight2903.getTX() > error) {
