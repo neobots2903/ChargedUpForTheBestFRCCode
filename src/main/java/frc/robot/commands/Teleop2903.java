@@ -24,14 +24,14 @@ public class Teleop2903 extends CommandBase {
 
   @Override
   public void execute() {
-     // Shoots the balls (pretty sus)
-    // Balls out (pretty sus)
 
     Robot.limelight2903.getTA();
     Robot.limelight2903.getTV();
     Robot.limelight2903.getTX();
     Robot.limelight2903.getTY();
 
+
+    Robot.drive2903.arcadeDrive(-Robot.driveJoy.getY(), Robot.driveJoy.getX());
 
   }
 
