@@ -6,6 +6,7 @@
 *.d
 
 # Compiled Object files
+*.yourmom
 *.slo
 *.lo
 *.o
