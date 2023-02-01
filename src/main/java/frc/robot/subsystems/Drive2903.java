@@ -21,13 +21,6 @@ public class Drive2903 {
     motorDriveBackRight = new CANSparkMax(RobotMap.motorDriveBackRight, MotorType.kBrushless);
   }
 
-  public void tankDrive(double left, double right) {
-    motorDriveFrontLeft.set(left);
-    motorDriveFrontRight.set(-right);
-    motorDriveBackLeft.set(left);
-    motorDriveBackRight.set(-right);
-  }
-
   public void arcadeDrive(double forward, double turn) {
     motorDriveFrontLeft.set(forward + turn);
     motorDriveFrontRight.set(-forward + turn);
