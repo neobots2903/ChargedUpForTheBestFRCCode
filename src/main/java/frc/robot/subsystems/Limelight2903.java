@@ -11,7 +11,7 @@ public class Limelight2903 {
     public NetworkTableEntry ta;
     public NetworkTableEntry tv;
 
-    public Limelight2903(){
+    public Limelight2903() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
         tx = table.getEntry("tx"); //x axis 
         ty = table.getEntry("ty"); //y axis 
@@ -37,13 +37,13 @@ public class Limelight2903 {
         return area; 
     }
 
-    public boolean getTV(){
+    public boolean getTV() {
         boolean valid = tv.getDouble(0) == 1.0;
         SmartDashboard.putBoolean("LimelightV", valid);
         return valid;
     }
     
-    // public void setLED(boolean on){
+    // public void setLED(boolean on) {
     //     table.getEntry("ledMode"); 
     // }
 }

@@ -28,8 +28,23 @@ public class Drive2903 {
     motorDriveBackRight.set(-forward + turn);
   }
 
+  public void arcadeDriveSeconds(double forward, double turn, double seconds) {
+    new Thread() {
+      @Override
+      public void run() {
+        arcadeDrive(forward, turn);
+
+        try {
+          Thread.sleep((long) (seconds * 1000));
+        } catch(InterruptedException exc) {}
+
+        arcadeDrive(0, 0);
+      }
+    }.start();
+  }
+
   // To go backwords give a negative speed
-  public void distanceDrive(double forward, double turn, double distance) {
+  public void arcadeDriveDistance(double forward, double turn, double distance) {
     double startPos = motorDriveFrontLeft.getEncoder().getPosition();
 
     while(ticksToInches(motorDriveFrontLeft.getEncoder().getPosition() - startPos) < Math.abs(distance)) {

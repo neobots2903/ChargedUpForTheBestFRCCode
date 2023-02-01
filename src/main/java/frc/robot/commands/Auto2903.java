@@ -21,7 +21,7 @@ public class Auto2903 extends CommandBase {
 
   @Override
   public void execute() {
-    Robot.drive2903.distanceDrive(30, 0, -.2);
+    Robot.drive2903.arcadeDriveDistance(30, 0, -.2);
 
     while(running) {
       if(Robot.limelight2903.getTV()) {
@@ -42,7 +42,7 @@ public class Auto2903 extends CommandBase {
         }
       }
     }
-    Robot.drive2903.distanceDrive(30, 0, -.2);
+    Robot.drive2903.arcadeDriveDistance(30, 0, -.2);
     cancel();
   }
 
