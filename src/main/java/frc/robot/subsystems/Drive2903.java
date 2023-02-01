@@ -7,45 +7,51 @@ import frc.robot.RobotMap;
 
 public class Drive2903 {
   public static final int TICKS_PER_REV = 4096;
-  public static final double WHEEL_CIRCUMFERENCE = Math.PI * 6; // in inches
+  public static final double WHEEL_CIRCUMFERENCE = Math.PI * 6;// In inches
   public static final double GEAR_RATIO = 10.714284;
-  public CANSparkMax frontLeftMotor;
-  public CANSparkMax frontRightMotor;
-  public CANSparkMax backLeftMotor;
-  public CANSparkMax backRightMotor;
+  public CANSparkMax motorDriveFrontLeft;
+  public CANSparkMax motorDriveFrontRight;
+  public CANSparkMax motorDriveBackLeft;
+  public CANSparkMax motorDriveBackRight;
 
-  /** Creates a new ExampleSubsystem. */
   public Drive2903() {
-    frontLeftMotor = new CANSparkMax(RobotMap.frontLeftMotor, MotorType.kBrushless);
-    frontRightMotor = new CANSparkMax(RobotMap.frontRightMotor, MotorType.kBrushless);
-    backLeftMotor = new CANSparkMax(RobotMap.backLeftMotor, MotorType.kBrushless);
-    backRightMotor = new CANSparkMax(RobotMap.backRightMotor, MotorType.kBrushless);
+    motorDriveFrontLeft = new CANSparkMax(RobotMap.motorDriveFrontLeft, MotorType.kBrushless);
+    motorDriveFrontRight = new CANSparkMax(RobotMap.motorDriveFrontRight, MotorType.kBrushless);
+    motorDriveBackLeft = new CANSparkMax(RobotMap.motorDriveBackLeft, MotorType.kBrushless);
+    motorDriveBackRight = new CANSparkMax(RobotMap.motorDriveBackRight, MotorType.kBrushless);
   }
 
   public void tankDrive(double left, double right) {
-    frontLeftMotor.set(left);
-    frontRightMotor.set(-right);
-    backLeftMotor.set(left);
-    backRightMotor.set(-right);
+    motorDriveFrontLeft.set(left);
+    motorDriveFrontRight.set(-right);
+    motorDriveBackLeft.set(left);
+    motorDriveBackRight.set(-right);
   }
 
   public void arcadeDrive(double forward, double turn) {
-    frontLeftMotor.set(forward + turn);
-    frontRightMotor.set(-forward + turn);
-    backLeftMotor.set(forward + turn);
-    backRightMotor.set(-forward + turn);
+    motorDriveFrontLeft.set(forward + turn);
+    motorDriveFrontRight.set(-forward + turn);
+    motorDriveBackLeft.set(forward + turn);
+    motorDriveBackRight.set(-forward + turn);
   }
 
-  // to go backwords give a negative speed
-  public void distanceDrive(double distance, double speed) {
-    double startPos = frontLeftMotor.getEncoder().getPosition();
+  // To go backwords give a negative speed
+  public void distanceDrive(double forward, double turn, double distance) {
+    double startPos = motorDriveFrontLeft.getEncoder().getPosition();
 
-    while (ticksToInches(frontLeftMotor.getEncoder().getPosition() - startPos) < Math.abs(distance)) {
-      SmartDashboard.putNumber("distance (in)", ticksToInches(frontLeftMotor.getEncoder().getPosition() - startPos));
-      arcadeDrive(speed, 0);
+    while(ticksToInches(motorDriveFrontLeft.getEncoder().getPosition() - startPos) < Math.abs(distance)) {
+      SmartDashboard.putNumber("Distance (in)", ticksToInches(motorDriveFrontLeft.getEncoder().getPosition() - startPos));
+      arcadeDrive(forward, turn);
     }
 
     arcadeDrive(0, 0);
+  }
+
+  public void telemacatrate() {
+    SmartDashboard.putNumber("MotorDriveFrontLeft", motorDriveFrontLeft.getMotorTemperature());
+    SmartDashboard.putNumber("MotorDriveFrontRight", motorDriveFrontLeft.getMotorTemperature());
+    SmartDashboard.putNumber("MotorDriveBackLeft", motorDriveFrontLeft.getMotorTemperature());
+    SmartDashboard.putNumber("MotorDriveBackRight", motorDriveFrontLeft.getMotorTemperature());
   }
 
   public static double ticksToInches(double rev) {

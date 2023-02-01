@@ -4,13 +4,11 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-// import frc.robot.commands.Auto2903;
 import frc.robot.commands.Teleop2903;
 import frc.robot.subsystems.Drive2903;
 import frc.robot.subsystems.Limelight2903;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,10 +17,8 @@ import edu.wpi.first.cscore.UsbCamera;
  * project.
  */
 public class Robot extends TimedRobot {
-    private Command m_autonomousCommand;
-
-    private RobotContainer m_robotContainer;
-    private static Teleop2903 teleop;
+    private Command autoCommand;
+    public static Teleop2903 teleop;
     public static Limelight2903 limelight2903;
     public static Drive2903 drive2903;
     public static Joystick driveJoy;
@@ -35,14 +31,12 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-        // autonomous chooser on the dashboard.
+        // Instantiate our RobotContainer. This will perform all our button bindings, and put our autonomous chooser on the dashboard.
         driveJoy = new Joystick(RobotMap.driveJoy);
         opJoy = new Joystick(RobotMap.opJoy);
         limelight2903 = new Limelight2903();
         drive2903 = new Drive2903();
         teleop = new Teleop2903();
-        m_robotContainer = new RobotContainer();
         camera = CameraServer.startAutomaticCapture();
     }
 
@@ -61,10 +55,9 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         teleop.cancel();
-        m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-        if(m_autonomousCommand != null) {
-            m_autonomousCommand.schedule();
+        if(autoCommand != null) {
+            autoCommand.schedule();
         }
     }
 
@@ -73,8 +66,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        if(m_autonomousCommand != null) {
-            m_autonomousCommand.cancel();
+        if(autoCommand != null) {
+            autoCommand.cancel();
         }
 
         teleop.schedule();

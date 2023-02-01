@@ -4,10 +4,10 @@ import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Auto2903 extends CommandBase {
-  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  boolean running = true;
-  double error = 0.5;
-  long startTime = 0;
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  public boolean running = true;
+  public double error = 0.5;
+  public long startTime = 0;
 
   public Auto2903() {
   }
@@ -21,11 +21,11 @@ public class Auto2903 extends CommandBase {
 
   @Override
   public void execute() {
-    Robot.drive2903.distanceDrive(30, -.2);
+    Robot.drive2903.distanceDrive(30, 0, -.2);
 
     // while(running){
-    // if (Robot.limelight2903.getTV()){
-    // if (Robot.limelight2903.getTX() > error){
+    // if(Robot.limelight2903.getTV()){
+    // if(Robot.limelight2903.getTX() > error){
     // Robot.drive2903.arcadeDrive(0, .07);
     // }
     // else if(Robot.limelight2903.getTX() < -error){
@@ -37,14 +37,14 @@ public class Auto2903 extends CommandBase {
     // }
     // } else {
     // Robot.drive2903.arcadeDrive(0, -.10);
-    // if (startTime + 14000 < System.currentTimeMillis()){
+    // if(startTime + 14000 < System.currentTimeMillis()){
     // running = false;
     // cancel();
     // return;
     // }
     // }
     // }
-    Robot.drive2903.distanceDrive(30, -.2);
+    Robot.drive2903.distanceDrive(30, 0, -.2);
     cancel();
   }
 
