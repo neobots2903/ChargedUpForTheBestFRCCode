@@ -24,20 +24,17 @@ public class Teleop2903 extends CommandBase {
 
   @Override
   public void execute() {
-
     Robot.limelight2903.getTA();
     Robot.limelight2903.getTV();
     Robot.limelight2903.getTX();
     Robot.limelight2903.getTY();
-
     
-    Robot.drive2903.arcadeDrive(-Math.pow(Robot.driveJoy.getY(), 2), Math.pow(Robot.driveJoy.getX(), 2));
-
+    Robot.drive2903.diffDrive.arcadeDrive(-Math.pow(Robot.driveJoy.getY(), 2), Math.pow(Robot.driveJoy.getX(), 2));
   }
 
   @Override
   public void end(boolean interrupted) {
-    Robot.drive2903.arcadeDrive(0, 0);
+    Robot.drive2903.diffDrive.arcadeDrive(0, 0);
   }
 
   @Override

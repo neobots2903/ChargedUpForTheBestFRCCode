@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import frc.robot.RobotMap;
 
 public class Drive2903 {
@@ -13,32 +15,31 @@ public class Drive2903 {
   public CANSparkMax motorDriveFrontRight;
   public CANSparkMax motorDriveBackLeft;
   public CANSparkMax motorDriveBackRight;
+  public DifferentialDrive diffDrive;
 
   public Drive2903() {
     motorDriveFrontLeft = new CANSparkMax(RobotMap.motorDriveFrontLeft, MotorType.kBrushless);
     motorDriveFrontRight = new CANSparkMax(RobotMap.motorDriveFrontRight, MotorType.kBrushless);
     motorDriveBackLeft = new CANSparkMax(RobotMap.motorDriveBackLeft, MotorType.kBrushless);
     motorDriveBackRight = new CANSparkMax(RobotMap.motorDriveBackRight, MotorType.kBrushless);
-  }
-
-  public void arcadeDrive(double forward, double turn) {
-    motorDriveFrontLeft.set(forward + turn);
-    motorDriveFrontRight.set(-forward + turn);
-    motorDriveBackLeft.set(forward + turn);
-    motorDriveBackRight.set(-forward + turn);
+    
+    MotorControllerGroup left = new MotorControllerGroup(motorDriveFrontLeft, motorDriveBackLeft);
+    MotorControllerGroup right = new MotorControllerGroup(motorDriveFrontRight, motorDriveBackRight);
+    diffDrive = new DifferentialDrive(left, right);
+    diffDrive.setDeadband(0.05);
   }
 
   public void arcadeDriveSeconds(double forward, double turn, double seconds) {
     new Thread() {
       @Override
       public void run() {
-        arcadeDrive(forward, turn);
+        diffDrive.arcadeDrive(forward, turn);
 
         try {
           Thread.sleep((long) (seconds * 1000));
         } catch(InterruptedException exc) {}
 
-        arcadeDrive(0, 0);
+        diffDrive.arcadeDrive(0, 0);
       }
     }.start();
   }
@@ -49,10 +50,10 @@ public class Drive2903 {
 
     while(ticksToInches(motorDriveFrontLeft.getEncoder().getPosition() - startPos) < Math.abs(distance)) {
       SmartDashboard.putNumber("Distance (in)", ticksToInches(motorDriveFrontLeft.getEncoder().getPosition() - startPos));
-      arcadeDrive(forward, turn);
+      diffDrive.arcadeDrive(forward, turn);
     }
 
-    arcadeDrive(0, 0);
+    diffDrive.arcadeDrive(0, 0);
   }
 
   public void telemacatrate() {
