@@ -9,7 +9,6 @@ import frc.robot.subsystems.Drive2903;
 import frc.robot.subsystems.Limelight2903;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
