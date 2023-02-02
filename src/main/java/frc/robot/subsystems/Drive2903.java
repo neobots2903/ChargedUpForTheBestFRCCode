@@ -22,6 +22,9 @@ public class Drive2903 {
     motorDriveFrontRight = new CANSparkMax(RobotMap.motorDriveFrontRight, MotorType.kBrushless);
     motorDriveBackLeft = new CANSparkMax(RobotMap.motorDriveBackLeft, MotorType.kBrushless);
     motorDriveBackRight = new CANSparkMax(RobotMap.motorDriveBackRight, MotorType.kBrushless);
+
+    motorDriveFrontRight.setInverted(true);
+    motorDriveBackRight.setInverted(true);
     
     MotorControllerGroup left = new MotorControllerGroup(motorDriveFrontLeft, motorDriveBackLeft);
     MotorControllerGroup right = new MotorControllerGroup(motorDriveFrontRight, motorDriveBackRight);

@@ -28,8 +28,9 @@ public class Teleop2903 extends CommandBase {
     Robot.limelight2903.getTV();
     Robot.limelight2903.getTX();
     Robot.limelight2903.getTY();
-    
-    Robot.drive2903.diffDrive.arcadeDrive(-Math.pow(Robot.driveJoy.getY(), 2), Math.pow(Robot.driveJoy.getX(), 2));
+
+    Robot.drive2903.telemacatrate();
+    Robot.drive2903.diffDrive.arcadeDrive(-Robot.driveJoy.getY(), -Robot.driveJoy.getX(), true);
   }
 
   @Override
