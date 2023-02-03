@@ -4,7 +4,7 @@ import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Auto2903 extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   public boolean running = true;
   public double error = 0.5;
   public long startTime = 0;
@@ -21,28 +21,28 @@ public class Auto2903 extends CommandBase {
 
   @Override
   public void execute() {
-    Robot.drive2903.arcadeDriveDistance(30, 0, -.2);
+    // Robot.drive2903.arcadeDriveDistance(30, 0, -.2);
 
-    while(running) {
-      if(Robot.limelight2903.getTV()) {
-        if(Robot.limelight2903.getTX() > error) {
-        Robot.drive2903.diffDrive.arcadeDrive(0, .07);
-        } else if(Robot.limelight2903.getTX() < -error) {
-        Robot.drive2903.diffDrive.arcadeDrive(0, -.07);
+    while (running) {
+      if (Robot.limelight2903.getTV()) {
+        if (Robot.limelight2903.getTX() > error) {
+          Robot.drive2903.diffDrive.arcadeDrive(0, .07);
+        } else if (Robot.limelight2903.getTX() < -error) {
+          Robot.drive2903.diffDrive.arcadeDrive(0, -.07);
         } else {
-        Robot.drive2903.diffDrive.arcadeDrive(0, 0);
-        running = false;
+          Robot.drive2903.diffDrive.arcadeDrive(0, 0);
+          running = false;
         }
       } else {
         Robot.drive2903.diffDrive.arcadeDrive(0, -.10);
-        if(startTime + 14000 < System.currentTimeMillis()) {
-        running = false;
-        cancel();
-        return;
+        if (startTime + 14000 < System.currentTimeMillis()) {
+          running = false;
+          cancel();
+          return;
         }
       }
     }
-    Robot.drive2903.arcadeDriveDistance(30, 0, -.2);
+    // Robot.drive2903.arcadeDriveDistance(30, 0, -.2);
     cancel();
   }
 
