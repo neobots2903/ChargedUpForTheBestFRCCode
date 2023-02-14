@@ -10,6 +10,7 @@ import frc.robot.subsystems.Drive2903;
 import frc.robot.subsystems.Limelight2903;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -20,7 +21,7 @@ import edu.wpi.first.cscore.UsbCamera;
 public class Robot extends TimedRobot {
     private Command autoCommand;
     public static Teleop2903 teleop;
-    public static Claw2903 claw;
+    public static Claw2903 claw2903;
     public static Limelight2903 limelight2903;
     public static Drive2903 drive2903;
     public static Joystick driveJoy;
@@ -37,9 +38,9 @@ public class Robot extends TimedRobot {
         driveJoy = new Joystick(RobotMap.driveJoy);
         opJoy = new Joystick(RobotMap.opJoy);
         limelight2903 = new Limelight2903();
+        claw2903 = new Claw2903();
         drive2903 = new Drive2903();
         teleop = new Teleop2903();
-        claw = new Claw2903();
         camera = CameraServer.startAutomaticCapture();
     }
 
@@ -88,4 +89,14 @@ public class Robot extends TimedRobot {
     // This function is called periodically during test mode
     @Override
     public void testPeriodic() {}
+
+    public static void telemacatrate() {
+        SmartDashboard.putNumber("MotorDriveFrontLeft", drive2903.motorDriveFrontLeft.getMotorTemperature());
+        SmartDashboard.putNumber("MotorDriveFrontRight", drive2903.motorDriveFrontLeft.getMotorTemperature());
+        SmartDashboard.putNumber("MotorDriveBackLeft", drive2903.motorDriveFrontLeft.getMotorTemperature());
+        SmartDashboard.putNumber("MotorDriveBackRight", drive2903.motorDriveFrontLeft.getMotorTemperature());
+        SmartDashboard.putNumber("MotorClawOpener", claw2903.motorClawOpener.getMotorTemperature());
+        SmartDashboard.putNumber("MotorClawSucker", claw2903.motorClawSucker.getMotorTemperature());
+        SmartDashboard.putNumber("MotorClawTwist", claw2903.motorClawTwist.getMotorTemperature());
+    }
 }

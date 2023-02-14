@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import frc.robot.RobotMap;
@@ -60,8 +59,6 @@ public class Drive2903 {
     double startPos = motorDriveFrontLeft.getEncoder().getPosition();
 
     while(ticksToInches(motorDriveFrontLeft.getEncoder().getPosition() - startPos) < Math.abs(distance)) {
-      SmartDashboard.putNumber("Distance (in)",
-      ticksToInches(motorDriveFrontLeft.getEncoder().getPosition() - startPos));
       diffDrive.arcadeDrive(forward, turn);
     }
 
@@ -73,15 +70,4 @@ public class Drive2903 {
     double distance = wheelRev * WHEEL_CIRCUMFERENCE;
     return Math.abs(distance);
   }
-
-  // public void telemacatrate() {
-  // SmartDashboard.putNumber("MotorDriveFrontLeft",
-  // motorDriveFrontLeft.getMotorTemperature());
-  // SmartDashboard.putNumber("MotorDriveFrontRight",
-  // motorDriveFrontLeft.getMotorTemperature());
-  // SmartDashboard.putNumber("MotorDriveBackLeft",
-  // motorDriveFrontLeft.getMotorTemperature());
-  // SmartDashboard.putNumber("MotorDriveBackRight",
-  // motorDriveFrontLeft.getMotorTemperature());
-  // }
 }

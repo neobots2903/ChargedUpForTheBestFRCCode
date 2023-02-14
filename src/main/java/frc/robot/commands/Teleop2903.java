@@ -29,21 +29,21 @@ public class Teleop2903 extends CommandBase {
     Robot.limelight2903.getTX();
     Robot.limelight2903.getTY();
 
-    // Robot.drive2903.telemacatrate();
+    Robot.telemacatrate();
     Robot.drive2903.arcadeDrive(-Robot.driveJoy.getY(), -Robot.driveJoy.getX(), true);
     
-    if(!Robot.claw.clawIsOpening) {
+    if(!Robot.claw2903.clawIsOpening) {
       if(Robot.driveJoy.getRawButton(buttonRB)) {
-        Robot.claw.cubeMode(true);
+        Robot.claw2903.cubeMode(true);
       }
 
       if(Robot.driveJoy.getRawButton(buttonLB)) {
-        Robot.claw.cubeMode(false);
+        Robot.claw2903.cubeMode(false);
       }
     }
 
     if(Robot.driveJoy.getRawButton(buttonA)) {
-      Robot.claw.suck(Robot.claw.sucked ? false : true);
+      Robot.claw2903.suck(Robot.claw2903.sucked ? false : true);
     }
   }
 
