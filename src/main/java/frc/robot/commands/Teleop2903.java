@@ -33,18 +33,20 @@ public class Teleop2903 extends CommandBase {
     Robot.drive2903.arcadeDrive(-Robot.driveJoy.getY(), -Robot.driveJoy.getX(), true);
     
     if(!Robot.claw2903.clawIsOpening) {
-      if(Robot.driveJoy.getRawButton(buttonRB)) {
+      if(Robot.opJoy.getRawButton(buttonRB)) {
         Robot.claw2903.cubeMode(true);
       }
 
-      if(Robot.driveJoy.getRawButton(buttonLB)) {
+      if(Robot.opJoy.getRawButton(buttonLB)) {
         Robot.claw2903.cubeMode(false);
       }
     }
 
-    if(Robot.driveJoy.getRawButton(buttonA)) {
+    if(Robot.opJoy.getRawButton(buttonA)) {
       Robot.claw2903.suck(Robot.claw2903.sucked ? false : true);
     }
+
+    Robot.arm2903.powerArm(Robot.opJoy.getRawAxis(lt) - Robot.opJoy.getRawAxis(rt));
   }
 
   @Override
