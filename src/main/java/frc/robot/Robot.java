@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.Teleop2903;
+import frc.robot.subsystems.Claw2903;
 import frc.robot.subsystems.Drive2903;
 import frc.robot.subsystems.Limelight2903;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -19,6 +20,7 @@ import edu.wpi.first.cscore.UsbCamera;
 public class Robot extends TimedRobot {
     private Command autoCommand;
     public static Teleop2903 teleop;
+    public static Claw2903 claw;
     public static Limelight2903 limelight2903;
     public static Drive2903 drive2903;
     public static Joystick driveJoy;
@@ -37,6 +39,7 @@ public class Robot extends TimedRobot {
         limelight2903 = new Limelight2903();
         drive2903 = new Drive2903();
         teleop = new Teleop2903();
+        claw = new Claw2903();
         camera = CameraServer.startAutomaticCapture();
     }
 
