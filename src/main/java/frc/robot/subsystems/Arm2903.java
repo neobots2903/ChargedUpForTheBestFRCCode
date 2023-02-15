@@ -10,38 +10,71 @@ public class Arm2903 {
   public static final double downSpeed = 1;
   public double bottomEncoder; 
 
-  public CANSparkMax motorArmMain;
+  public CANSparkMax motorArmExtend;
+  public CANSparkMax motorArmRotate;
 
   public Arm2903() {
-    motorArmMain = new CANSparkMax(RobotMap.motorArmMain, MotorType.kBrushless);
+    motorArmExtend = new CANSparkMax(RobotMap.motorArmExtend, MotorType.kBrushless);
+    motorArmRotate = new CANSparkMax(RobotMap.motorArmRotate, MotorType.kBrushless);
     
-    motorArmMain.set(downSpeed);
+    motorArmRotate.set(downSpeed);
 
     while(!getBottomLimit()) {
       // Wait for arm to go down
     }
 
-    motorArmMain.set(0);
-    bottomEncoder = motorArmMain.getEncoder().getPosition();
+    motorArmRotate.set(0);
+    bottomEncoder = motorArmRotate.getEncoder().getPosition();
   }
 
-  public void powerArm(double speed) {
-    motorArmMain.set(speed);
+  public void extendArm(double speed) {
+    motorArmExtend.set(speed);
   }
 
-  public void powerArmSeconds(double speed, double seconds) {
+  public void extendArmSeconds(double speed, double seconds) {
     new Thread() {
       @Override
       public void run() {
-        powerArm(speed);
+        extendArm(speed);
 
         try {
           Thread.sleep((long) (seconds * 1000));
         } catch(InterruptedException exc) {}
 
-        powerArm(0);
+        extendArm(0);
       }
     }.start();
+
+    try {
+      Thread.sleep((long) (seconds * 1000));
+    } catch(InterruptedException exc) {}
+
+    extendArm(0);
+  }
+
+  public void rotateArm(double speed) {
+    motorArmRotate.set(speed);
+  }
+
+  public void rotateArmSeconds(double speed, double seconds) {
+    new Thread() {
+      @Override
+      public void run() {
+        rotateArm(speed);
+
+        try {
+          Thread.sleep((long) (seconds * 1000));
+        } catch(InterruptedException exc) {}
+
+        rotateArm(0);
+      }
+    }.start();
+
+    try {
+      Thread.sleep((long) (seconds * 1000));
+    } catch(InterruptedException exc) {}
+
+    rotateArm(0);
   }
 
   public boolean getBottomLimit() {

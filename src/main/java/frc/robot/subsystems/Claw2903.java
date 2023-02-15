@@ -39,36 +39,31 @@ public class Claw2903 {
             return;
         }
 
-        new Thread() {
-            @Override
-            public void run() {
-                clawIsFlipping = true;
-                // Flip claw till upsidedown
+        clawIsFlipping = true;
+        // Flip claw till upsidedown
 
-                // Power claw to open
-                motorClawTwist.set(-clawFlipUpPower);
+        // Power claw to open
+        motorClawTwist.set(-clawFlipUpPower);
 
-                // While limit switch not pressed
-                while(!motorClawFlipperLimit()) {
-                    // Wait for claw to flip upsidedown
-                }
+        // While limit switch not pressed
+        while(!motorClawFlipperLimit()) {
+            // Wait for claw to flip upsidedown
+        }
 
-                motorClawTwist.set(0);
+        motorClawTwist.set(0);
 
-                if(rightSideUp) {
-                    double motorClawFlipperEncoderDefualtPosition = motorClawTwist.getEncoder().getPosition();
-                    motorClawTwist.set(clawOpenerOpenPower);
+        if(rightSideUp) {
+            double motorClawFlipperEncoderDefualtPosition = motorClawTwist.getEncoder().getPosition();
+            motorClawTwist.set(clawOpenerOpenPower);
 
-                    while(motorClawTwist.getEncoder().getPosition() != motorClawFlipperEncoderDefualtPosition + clawDistanceToFlip) {
-                        // Wait for claw to flip rightside up
-                    }
-
-                    motorClawOpener.set(0);
-                }
-
-                clawIsFlipping = false;
+            while(motorClawTwist.getEncoder().getPosition() != motorClawFlipperEncoderDefualtPosition + clawDistanceToFlip) {
+                // Wait for claw to flip rightside up
             }
-        }.start();
+
+            motorClawOpener.set(0);
+        }
+
+        clawIsFlipping = false;
     }
 
     // If inCubeMode then open claw to pick up cubes else close claw to pick up cubes
@@ -77,32 +72,27 @@ public class Claw2903 {
             return;
         }
 
-        new Thread() {
-            @Override
-            public void run() {
-                clawIsOpening = true;
-                // Open claw till encoder pressed
- 
-                // Power claw to open
-                motorClawOpener.set(-clawOpenerOpenPower);
+        clawIsOpening = true;
+        // Open claw till encoder pressed
 
-                // While limit switch not pressed
-                while(!motorClawOpenerLimit()) {
-                    // Wait for claw to open
-                }
+        // Power claw to open
+        motorClawOpener.set(-clawOpenerOpenPower);
 
-                motorClawOpener.set(0);
-                double motorClawOpenerEncoderDefualtPosition = motorClawOpener.getEncoder().getPosition();
-                motorClawOpener.set(clawOpenerOpenPower);
+        // While limit switch not pressed
+        while(!motorClawOpenerLimit()) {
+            // Wait for claw to open
+        }
 
-                while(motorClawOpener.getEncoder().getPosition() != motorClawOpenerEncoderDefualtPosition + (inCubeMode ? clawDistanceFromCubeMode : clawDistanceFromConeMode)) {
-                    // Wait for claw to close the right amount
-                }
+        motorClawOpener.set(0);
+        double motorClawOpenerEncoderDefualtPosition = motorClawOpener.getEncoder().getPosition();
+        motorClawOpener.set(clawOpenerOpenPower);
 
-                motorClawOpener.set(0);
-                clawIsOpening = false;
-            }
-        }.start();
+        while(motorClawOpener.getEncoder().getPosition() != motorClawOpenerEncoderDefualtPosition + (inCubeMode ? clawDistanceFromCubeMode : clawDistanceFromConeMode)) {
+            // Wait for claw to close the right amount
+        }
+
+        motorClawOpener.set(0);
+        clawIsOpening = false;
     }
 
     public boolean motorClawOpenerLimit() {
@@ -115,18 +105,13 @@ public class Claw2903 {
 
     // If suckIn then power suckers sucking in for clawSuckerSuckInLengthMillis to suck in else power suckers sucking out for power suckers for clawSuckerSuckOutLengthMillis
     public void suck(boolean suckIn) {
-        new Thread() {
-            @Override
-            public void run() {
-                motorClawSucker.set(suckIn ? suckingSpeed : -suckingSpeed);
+        motorClawSucker.set(suckIn ? suckingSpeed : -suckingSpeed);
 
-                try {
-                    Thread.sleep(suckIn ? clawSuckerSuckInLengthMillis : clawSuckerSuckOutLengthMillis);
-                } catch(InterruptedException exc) {}
+        try {
+            Thread.sleep(suckIn ? clawSuckerSuckInLengthMillis : clawSuckerSuckOutLengthMillis);
+        } catch(InterruptedException exc) {}
 
-                motorClawSucker.set(0);
-                sucked = sucked ? false : true;
-            }
-        }.start();
+        motorClawSucker.set(0);
+        sucked = sucked ? false : true;
     }
 }
