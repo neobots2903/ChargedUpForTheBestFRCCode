@@ -9,25 +9,21 @@ public class Auto2903 extends CommandBase {
   public double error = 0.5;
   public long startTime = 0;
 
-  public Auto2903() {
-  }
-
   @Override
   public void initialize() {
     running = true;
     startTime = System.currentTimeMillis();
-
   }
 
   @Override
   public void execute() {
     // Robot.drive2903.arcadeDriveDistance(30, 0, -.2);
 
-    while (running) {
-      if (Robot.limelight2903.seesTarget()) {
-        if (Robot.limelight2903.getXAxis() > error) {
+    while(running) {
+      if(Robot.limelight2903.seesTarget()) {
+        if(Robot.limelight2903.getXAxis() > error) {
           Robot.drive2903.arcadeDrive(0, .07);
-        } else if (Robot.limelight2903.getXAxis() < -error) {
+        } else if(Robot.limelight2903.getXAxis() < -error) {
           Robot.drive2903.arcadeDrive(0, -.07);
         } else {
           Robot.drive2903.arcadeDrive(0, 0);
@@ -35,13 +31,14 @@ public class Auto2903 extends CommandBase {
         }
       } else {
         Robot.drive2903.arcadeDrive(0, -.10);
-        if (startTime + 14000 < System.currentTimeMillis()) {
+        if(startTime + 14000 < System.currentTimeMillis()) {
           running = false;
           cancel();
           return;
         }
       }
     }
+    
     // Robot.drive2903.arcadeDriveDistance(30, 0, -.2);
     cancel();
   }
