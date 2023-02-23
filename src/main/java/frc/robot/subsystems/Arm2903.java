@@ -8,7 +8,7 @@ public class Arm2903 {
   // `1q
   public static final int distanceToTravelToTop = 10000;
   public static final double downSpeed = 1;
-  public double bottomEncoder; 
+  public double bottomEncoder;
 
   public CANSparkMax motorArmExtend;
   public CANSparkMax motorArmRotate;
@@ -25,6 +25,15 @@ public class Arm2903 {
 
     motorArmRotate.set(0);
     bottomEncoder = motorArmRotate.getEncoder().getPosition();
+    
+    new Thread() {
+      @Override
+      public void run() {
+        if(getBottomLimit()) {
+          extendArm(0);
+        }
+      }
+    }.start();
   }
 
   public void extendArm(double speed) {

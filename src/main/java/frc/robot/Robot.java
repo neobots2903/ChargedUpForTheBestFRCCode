@@ -36,15 +36,16 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        // Instantiate our RobotContainer. This will perform all our button bindings, and put our autonomous chooser on the dashboard.
+        teleop = new Teleop2903();
+
         driveJoy = new Joystick(RobotMap.driveJoy);
         opJoy = new Joystick(RobotMap.opJoy);
-        limelight2903 = new Limelight2903();
-        arm2903 = new Arm2903();
-        claw2903 = new Claw2903();
-        drive2903 = new Drive2903();
-        teleop = new Teleop2903();
-        camera = CameraServer.startAutomaticCapture();
+
+        if(UsingMap.usingLimelight) limelight2903 = new Limelight2903();
+        if(UsingMap.usingArm) arm2903 = new Arm2903();
+        if(UsingMap.usingClaw) claw2903 = new Claw2903();
+        if(UsingMap.usingDrive) drive2903 = new Drive2903();
+        if(UsingMap.usingLimelight) camera = CameraServer.startAutomaticCapture();
     }
 
     @Override
@@ -85,8 +86,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void testInit() {
-      // Cancels all running commands at the start of test mode
-      CommandScheduler.getInstance().cancelAll();
+        // Cancels all running commands at the start of test mode
+        CommandScheduler.getInstance().cancelAll();
     }
 
     // This function is called periodically during test mode
@@ -94,12 +95,17 @@ public class Robot extends TimedRobot {
     public void testPeriodic() {}
 
     public static void telemacatrate() {
-        SmartDashboard.putNumber("MotorDriveFrontLeft", drive2903.motorDriveFrontLeft.getMotorTemperature());
-        SmartDashboard.putNumber("MotorDriveFrontRight", drive2903.motorDriveFrontLeft.getMotorTemperature());
-        SmartDashboard.putNumber("MotorDriveBackLeft", drive2903.motorDriveFrontLeft.getMotorTemperature());
-        SmartDashboard.putNumber("MotorDriveBackRight", drive2903.motorDriveFrontLeft.getMotorTemperature());
-        SmartDashboard.putNumber("MotorClawOpener", claw2903.motorClawOpener.getMotorTemperature());
-        SmartDashboard.putNumber("MotorClawSucker", claw2903.motorClawSucker.getMotorTemperature());
-        SmartDashboard.putNumber("MotorClawTwist", claw2903.motorClawTwist.getMotorTemperature());
+        if(UsingMap.usingDrive) {
+            SmartDashboard.putNumber("MotorDriveFrontLeft", drive2903.motorDriveFrontLeft.getMotorTemperature());
+            SmartDashboard.putNumber("MotorDriveFrontRight", drive2903.motorDriveFrontLeft.getMotorTemperature());
+            SmartDashboard.putNumber("MotorDriveBackLeft", drive2903.motorDriveFrontLeft.getMotorTemperature());
+            SmartDashboard.putNumber("MotorDriveBackRight", drive2903.motorDriveFrontLeft.getMotorTemperature());
+        }
+
+        if(UsingMap.usingClaw) {
+            SmartDashboard.putNumber("MotorClawOpener", claw2903.motorClawOpener.getMotorTemperature());
+            SmartDashboard.putNumber("MotorClawSucker", claw2903.motorClawSucker.getMotorTemperature());
+            SmartDashboard.putNumber("MotorClawFlip", claw2903.motorClawFlip.getMotorTemperature());
+        }
     }
 }

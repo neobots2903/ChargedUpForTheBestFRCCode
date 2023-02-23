@@ -13,7 +13,7 @@ public class Claw2903 {
     public static final int clawDistanceFromConeMode = 2000;// Guess - find real value
     public static final int clawDistanceFromCubeMode = 1000;// Guess - find real value
 
-    // Encoder distance needed to flip claw 180 degrees (Pi radians)
+    // Encoder distance needed to flip claw 180 degrees (π radians)
     public static final int clawDistanceToFlip = 1000;// Guess - find real value
 
     public static final int clawOpenerOpenPower = 1;
@@ -26,12 +26,12 @@ public class Claw2903 {
 
     public CANSparkMax motorClawOpener;
     public CANSparkMax motorClawSucker;
-    public CANSparkMax motorClawTwist;
+    public CANSparkMax motorClawFlip;
 
     public Claw2903() {
         motorClawOpener = new CANSparkMax(RobotMap.motorClawOpener, MotorType.kBrushless);
         motorClawSucker = new CANSparkMax(RobotMap.motorClawSucker, MotorType.kBrushless);
-        motorClawTwist = new CANSparkMax(RobotMap.motorClawTwist, MotorType.kBrushless);
+        motorClawFlip = new CANSparkMax(RobotMap.motorClawFlip, MotorType.kBrushless);
     }
 
     public void flipClaw(boolean rightSideUp) {
@@ -40,30 +40,30 @@ public class Claw2903 {
         }
 
         clawIsFlipping = true;
-        // Flip claw till upsidedown
+            // Flip claw till upsidedown
 
-        // Power claw to open
-        motorClawTwist.set(-clawFlipUpPower);
+            // Power claw to open
+            motorClawFlip.set(-clawFlipUpPower);
 
-        // While limit switch not pressed
-        while(!motorClawFlipperLimit()) {
-            // Wait for claw to flip upsidedown
-        }
-
-        motorClawTwist.set(0);
-
-        if(rightSideUp) {
-            double motorClawFlipperEncoderDefualtPosition = motorClawTwist.getEncoder().getPosition();
-            motorClawTwist.set(clawOpenerOpenPower);
-
-            while(motorClawTwist.getEncoder().getPosition() != motorClawFlipperEncoderDefualtPosition + clawDistanceToFlip) {
-                // Wait for claw to flip rightside up
+            // While limit switch not pressed
+            while(!motorClawFlipperLimit()) {
+                // Wait for claw to flip upsidedown
             }
 
-            motorClawOpener.set(0);
-        }
+            motorClawFlip.set(0);
 
-        clawIsFlipping = false;
+            if(rightSideUp) {
+                double motorClawFlipperEncoderDefualtPosition = motorClawFlip.getEncoder().getPosition();
+                motorClawFlip.set(clawOpenerOpenPower);
+
+                while(motorClawFlip.getEncoder().getPosition() != motorClawFlipperEncoderDefualtPosition + clawDistanceToFlip) {
+                    // Wait for claw to flip rightside up
+                }
+
+                motorClawOpener.set(0);
+            }
+
+            clawIsFlipping = false;
     }
 
     // If inCubeMode then open claw to pick up cubes else close claw to pick up cubes

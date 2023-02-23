@@ -4,49 +4,49 @@
 
 package frc.robot.commands;
 
+import frc.robot.JoystickMap;
 import frc.robot.Robot;
+import frc.robot.UsingMap;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class Teleop2903 extends CommandBase {
-  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  int leftY = 1;
-  int rightX = 0;
-  int lt = 2;
-  int rt = 3;
-  int buttonA = 1;
-  int buttonX = 3;
-  int buttonY = 4;
-  int buttonB = 2;
-  int buttonRB = 6;
-  int buttonLB = 5;
-  double error = 0.5;
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
   @Override
   public void execute() {
-    Robot.limelight2903.getTA();
-    Robot.limelight2903.getTV();
-    Robot.limelight2903.getTX();
-    Robot.limelight2903.getTY();
-
     Robot.telemacatrate();
-    Robot.drive2903.arcadeDrive(-Robot.driveJoy.getY(), -Robot.driveJoy.getX(), true);
+
+    if(UsingMap.usingLimelight) {
+      Robot.limelight2903.getArea();
+      Robot.limelight2903.seesTarget();
+      Robot.limelight2903.getXAxis();
+      Robot.limelight2903.getYAxis();
+    }
+
+    if(UsingMap.usingDrive) {
+      Robot.drive2903.arcadeDrive(-Robot.driveJoy.getY(), -Robot.driveJoy.getX(), true);
+    }
     
-    if(!Robot.claw2903.clawIsOpening) {
-      if(Robot.opJoy.getRawButton(buttonRB)) {
-        Robot.claw2903.cubeMode(true);
+    if(UsingMap.usingClaw) {
+      if(!Robot.claw2903.clawIsOpening) {
+        if(Robot.opJoy.getRawButton(JoystickMap.buttonRB)) {
+          Robot.claw2903.cubeMode(true);
+        }
+
+        if(Robot.opJoy.getRawButton(JoystickMap.buttonLB)) {
+          Robot.claw2903.cubeMode(false);
+        }
       }
 
-      if(Robot.opJoy.getRawButton(buttonLB)) {
-        Robot.claw2903.cubeMode(false);
+      if(Robot.opJoy.getRawButton(JoystickMap.buttonA)) {
+        Robot.claw2903.suck(Robot.claw2903.sucked ? false : true);
       }
     }
 
-    if(Robot.opJoy.getRawButton(buttonA)) {
-      Robot.claw2903.suck(Robot.claw2903.sucked ? false : true);
+    if(UsingMap.usingArm) {
+      Robot.arm2903.rotateArm(Robot.opJoy.getRawAxis(JoystickMap.lt) - Robot.opJoy.getRawAxis(JoystickMap.rt));
     }
-
-    Robot.arm2903.rotateArm(Robot.opJoy.getRawAxis(lt) - Robot.opJoy.getRawAxis(rt));
   }
 
   @Override

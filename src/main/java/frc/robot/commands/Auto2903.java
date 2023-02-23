@@ -24,10 +24,10 @@ public class Auto2903 extends CommandBase {
     // Robot.drive2903.arcadeDriveDistance(30, 0, -.2);
 
     while (running) {
-      if (Robot.limelight2903.getTV()) {
-        if (Robot.limelight2903.getTX() > error) {
+      if (Robot.limelight2903.seesTarget()) {
+        if (Robot.limelight2903.getXAxis() > error) {
           Robot.drive2903.arcadeDrive(0, .07);
-        } else if (Robot.limelight2903.getTX() < -error) {
+        } else if (Robot.limelight2903.getXAxis() < -error) {
           Robot.drive2903.arcadeDrive(0, -.07);
         } else {
           Robot.drive2903.arcadeDrive(0, 0);

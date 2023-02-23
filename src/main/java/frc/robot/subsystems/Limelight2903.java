@@ -13,38 +13,33 @@ public class Limelight2903 {
 
     public Limelight2903() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
-        tx = table.getEntry("tx"); //x axis 
-        ty = table.getEntry("ty"); //y axis 
-        ta = table.getEntry("ta"); //area
-        tv = table.getEntry("tv"); //see target or not  
+        tx = table.getEntry("tx");// X axis
+        ty = table.getEntry("ty");// Y axis
+        ta = table.getEntry("ta");// Area
+        tv = table.getEntry("tv");// See target or not   
     }
 
-    public double getTX() {
+    public double getXAxis() { 
         double x = tx.getDouble(0.0);
         SmartDashboard.putNumber("LimelightX", x);
         return x;
     }
 
-    public double getTY() {
+    public double getYAxis() {
         double y = ty.getDouble(0.0);
         SmartDashboard.putNumber("LimelightY", y);
         return y; 
     }
 
-    public double getTA() {
+    public double getArea() {
         double area = ta.getDouble(0.0);
         SmartDashboard.putNumber("LimelightArea", area); 
         return area; 
     }
 
-    public boolean getTV() {
+    public boolean seesTarget() {
         boolean valid = tv.getDouble(0) == 1.0;
         SmartDashboard.putBoolean("LimelightV", valid);
         return valid;
     }
-    
-    // public void setLED(boolean on) {
-    //     table.getEntry("ledMode"); 
-    // }
 }
-
