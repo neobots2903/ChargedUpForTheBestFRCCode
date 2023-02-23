@@ -94,6 +94,12 @@ public class Robot extends TimedRobot {
     @Override
     public void testPeriodic() {}
 
+    public static void pause(double seconds) {
+        try {
+            Thread.sleep((long) (seconds * 1000));
+        } catch(InterruptedException exc) {}
+    }
+
     public static void telemacatrate() {
         if(UsingMap.usingDrive) {
             SmartDashboard.putNumber("MotorDriveFrontLeft", drive2903.motorDriveFrontLeft.getMotorTemperature());

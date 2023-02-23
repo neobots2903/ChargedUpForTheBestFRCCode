@@ -20,26 +20,13 @@ public class Auto2903 extends CommandBase {
     // Robot.drive2903.arcadeDriveDistance(30, 0, -.2);
 
     while(running) {
-      if(Robot.limelight2903.seesTarget()) {
-        if(Robot.limelight2903.getXAxis() > error) {
-          Robot.drive2903.arcadeDrive(0, .07);
-        } else if(Robot.limelight2903.getXAxis() < -error) {
-          Robot.drive2903.arcadeDrive(0, -.07);
-        } else {
-          Robot.drive2903.arcadeDrive(0, 0);
-          running = false;
-        }
-      } else {
-        Robot.drive2903.arcadeDrive(0, -.10);
-        if(startTime + 14000 < System.currentTimeMillis()) {
-          running = false;
-          cancel();
-          return;
-        }
-      }
+      Robot.drive2903.arcadeDriveSeconds(0, 0.1, 1);
+      Robot.arm2903.rotateArmSeconds(0.25, 0.5);
+      Robot.claw2903.suck(false);
+      Robot.pause(1);
+      Robot.drive2903.arcadeDriveSeconds(-0.1, 0, 1);
     }
-    
-    // Robot.drive2903.arcadeDriveDistance(30, 0, -.2);
+
     cancel();
   }
 
