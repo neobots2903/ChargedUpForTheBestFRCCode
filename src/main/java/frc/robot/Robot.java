@@ -116,6 +116,6 @@ public class Robot extends TimedRobot {
     }
 
     public void giveJessicaBlanket() {
-        // new Jessica().giveBalnket();
+        // new Jessica().giveBlanket();
     }
 }
