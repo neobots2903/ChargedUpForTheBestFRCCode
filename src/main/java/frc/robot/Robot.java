@@ -114,4 +114,8 @@ public class Robot extends TimedRobot {
             SmartDashboard.putNumber("MotorClawFlip", claw2903.motorClawFlip.getMotorTemperature());
         }
     }
+
+    public void giveJessicaBlanket() {
+        // new Jessica().giveBalnket();
+    }
 }
