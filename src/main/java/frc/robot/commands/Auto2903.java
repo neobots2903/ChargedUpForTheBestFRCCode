@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
+import frc.robot.subsystems.Limelight2903;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Auto2903 extends CommandBase {
@@ -13,19 +14,27 @@ public class Auto2903 extends CommandBase {
   public void initialize() {
     running = true;
     startTime = System.currentTimeMillis();
+
+    Robot.arm2903.findBottomEncoder();
   }
 
   @Override
   public void execute() {
-    // Robot.drive2903.arcadeDriveDistance(30, 0, -.2);
-
-    while(running) {
-      Robot.drive2903.arcadeDriveSeconds(0, 0.1, 1);
-      Robot.arm2903.rotateArmSeconds(0.25, 0.5);
-      Robot.claw2903.suck(false);
-      Robot.pause(1);
-      Robot.drive2903.arcadeDriveSeconds(-0.1, 0, 1);
+    Robot.limelight2903.setPipeline(Limelight2903.pipelineType.APRIL_TAG);
+    
+    while(Math.abs(Robot.limelight2903.getXAxis()) > 10) {
+      Robot.drive2903.arcadeDrive(0, Math.signum(Robot.limelight2903.getXAxis()) * 0.25);
     }
+    
+    Robot.drive2903.arcadeDrive(0.25, 0);
+
+    while(Robot.limelight2903.getArea() < 25) {
+      // Wait for robot to get close to april tag
+    }
+
+    Robot.drive2903.arcadeDrive(0, 0);
+    Robot.arm2903.rotateArmDegrees(-90);
+    Robot.arm2903.extendArmInches(69);
 
     cancel();
   }

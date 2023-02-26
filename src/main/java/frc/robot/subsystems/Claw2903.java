@@ -40,30 +40,30 @@ public class Claw2903 {
         }
 
         clawIsFlipping = true;
-            // Flip claw till upsidedown
+        // Flip claw till upsidedown
 
-            // Power claw to open
-            motorClawFlip.set(-clawFlipUpPower);
+        // Power claw to open
+        motorClawFlip.set(-clawFlipUpPower);
 
-            // While limit switch not pressed
-            while(!motorClawFlipperLimit()) {
-                // Wait for claw to flip upsidedown
+        // While limit switch not pressed
+        while(!motorClawFlipperLimit()) {
+            // Wait for claw to flip upsidedown
+        }
+
+        motorClawFlip.set(0);
+
+        if(rightSideUp) {
+            double motorClawFlipperEncoderDefualtPosition = motorClawFlip.getEncoder().getPosition();
+            motorClawFlip.set(clawOpenerOpenPower);
+
+            while(motorClawFlip.getEncoder().getPosition() != motorClawFlipperEncoderDefualtPosition + clawDistanceToFlip) {
+                // Wait for claw to flip rightside up
             }
 
-            motorClawFlip.set(0);
+            motorClawOpener.set(0);
+        }
 
-            if(rightSideUp) {
-                double motorClawFlipperEncoderDefualtPosition = motorClawFlip.getEncoder().getPosition();
-                motorClawFlip.set(clawOpenerOpenPower);
-
-                while(motorClawFlip.getEncoder().getPosition() != motorClawFlipperEncoderDefualtPosition + clawDistanceToFlip) {
-                    // Wait for claw to flip rightside up
-                }
-
-                motorClawOpener.set(0);
-            }
-
-            clawIsFlipping = false;
+        clawIsFlipping = false;
     }
 
     // If inCubeMode then open claw to pick up cubes else close claw to pick up cubes

@@ -1,4 +1,5 @@
 package frc.robot.subsystems;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -17,6 +18,21 @@ public class Limelight2903 {
         ty = table.getEntry("ty");// Y axis
         ta = table.getEntry("ta");// Area
         tv = table.getEntry("tv");// See target or not   
+    }
+
+    public static enum pipelineType {
+        APRIL_TAG(0),
+        REFLECTIVE_TAPE(1);
+
+        public int value;
+
+        private pipelineType(int value) {
+            this.value = value;
+        }
+    }
+
+    public void setPipeline(pipelineType type) {
+        table.getEntry("pipeline").setNumber(type.value); 
     }
 
     public double getXAxis() { 

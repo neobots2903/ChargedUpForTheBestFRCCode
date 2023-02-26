@@ -6,6 +6,8 @@ import frc.robot.RobotMap;
 
 public class Arm2903 {
   // `1q
+  public static final int TICKS_PER_REVOLUTIONS = 42;
+  public static final int GEAR_DIAMETER = 2;
   public static final int distanceToTravelToTop = 10000;
   public static final double downSpeed = 1;
   public double bottomEncoder;
@@ -16,7 +18,10 @@ public class Arm2903 {
   public Arm2903() {
     motorArmExtend = new CANSparkMax(RobotMap.motorArmExtend, MotorType.kBrushless);
     motorArmRotate = new CANSparkMax(RobotMap.motorArmRotate, MotorType.kBrushless);
-    
+    GiveJessicaBlanket.initSmartMotion(motorArmExtend, distanceToTravelToTop, distanceToTravelToTop, bottomEncoder, bottomEncoder, downSpeed, distanceToTravelToTop, bottomEncoder);
+  }
+
+  public void findBottomEncoder() {
     motorArmRotate.set(downSpeed);
 
     while(!getBottomLimit()) {
@@ -25,68 +30,21 @@ public class Arm2903 {
 
     motorArmRotate.set(0);
     bottomEncoder = motorArmRotate.getEncoder().getPosition();
-    
-    new Thread() {
-      @Override
-      public void run() {
-        if(getBottomLimit()) {
-          extendArm(0);
-        }
-      }
-    }.start();
   }
 
   public void extendArm(double speed) {
     motorArmExtend.set(speed);
   }
 
-  public void extendArmSeconds(double speed, double seconds) {
-    new Thread() {
-      @Override
-      public void run() {
-        extendArm(speed);
-
-        try {
-          Thread.sleep((long) (seconds * 1000));
-        } catch(InterruptedException exc) {}
-
-        extendArm(0);
-      }
-    }.start();
-
-    try {
-      Thread.sleep((long) (seconds * 1000));
-    } catch(InterruptedException exc) {}
-
-    extendArm(0);
+  public void extendArmInches(int inches) {
+    GiveJessicaBlanket.setPosition(motorArmExtend, inches / Math.PI * GEAR_DIAMETER * TICKS_PER_REVOLUTIONS);
   }
 
   public void rotateArm(double speed) {
     motorArmRotate.set(speed);
   }
 
-  public void rotateArmSeconds(double speed, double seconds) {
-    new Thread() {
-      @Override
-      public void run() {
-        rotateArm(speed);
-
-        try {
-          Thread.sleep((long) (seconds * 1000));
-        } catch(InterruptedException exc) {}
-
-        rotateArm(0);
-      }
-    }.start();
-
-    try {
-      Thread.sleep((long) (seconds * 1000));
-    } catch(InterruptedException exc) {}
-
-    rotateArm(0);
-  }
-
-  public boolean getBottomLimit() {
-    return true;
+  public void rotateArmDegrees(int degrees) {
+    GiveJessicaBlanket.setPosition(motorArmRotate, degrees / 360 * TICKS_PER_REVOLUTIONS);
   }
 }
