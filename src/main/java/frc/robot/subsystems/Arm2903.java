@@ -47,4 +47,8 @@ public class Arm2903 {
   public void rotateArmDegrees(int degrees) {
     GiveJessicaBlanket.setPosition(motorArmRotate, degrees / 360 * TICKS_PER_REVOLUTIONS);
   }
+
+  public boolean getBottomLimit() {
+    return false;
+  }
 }
