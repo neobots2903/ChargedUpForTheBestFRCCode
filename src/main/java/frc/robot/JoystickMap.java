@@ -1,8 +1,8 @@
 package frc.robot;
 
 public class JoystickMap {
-    public static final int leftY = 1;
     public static final int rightX = 0;
+    public static final int leftY = 1;
     public static final int lt = 2;
     public static final int rt = 3;
     public static final int buttonA = 1;
@@ -11,5 +11,4 @@ public class JoystickMap {
     public static final int buttonB = 2;
     public static final int buttonRB = 6;
     public static final int buttonLB = 5;
-    public static final double error = 0.5;
 }

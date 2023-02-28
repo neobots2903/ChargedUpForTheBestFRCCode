@@ -18,7 +18,8 @@ public class Arm2903 {
   public Arm2903() {
     motorArmExtend = new CANSparkMax(RobotMap.motorArmExtend, MotorType.kBrushless);
     motorArmRotate = new CANSparkMax(RobotMap.motorArmRotate, MotorType.kBrushless);
-    GiveJessicaBlanket.initSmartMotion(motorArmExtend, distanceToTravelToTop, distanceToTravelToTop, bottomEncoder, bottomEncoder, downSpeed, distanceToTravelToTop, bottomEncoder);
+    GiveJessicaBlanket.initSmartMotion(motorArmExtend, 0, 0, 0, 0, 0, 0, 0);
+    GiveJessicaBlanket.initSmartMotion(motorArmRotate, 0, 0, 0, 0, 0, 0, 0);
   }
 
   public void findBottomEncoder() {
