@@ -23,4 +23,9 @@ public class GiveJessicaBlanket {
   public static void setPosition(CANSparkMax motor, double value) {
     motor.getPIDController().setReference(value, CANSparkMax.ControlType.kSmartMotion);
   }
+
+  public static boolean blanket() {
+    boolean yes = true;
+    return yes;
+  }
 }

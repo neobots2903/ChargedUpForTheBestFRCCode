@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
+import frc.robot.subsystems.GiveJessicaBlanket;
 import frc.robot.subsystems.Limelight2903;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -20,6 +21,8 @@ public class Auto2903 extends CommandBase {
 
   @Override
   public void execute() {
+    GiveJessicaBlanket.blanket();
+
     Robot.limelight2903.setPipeline(Limelight2903.pipelineType.APRIL_TAG);
     
     while(Math.abs(Robot.limelight2903.getXAxis()) > 10) {
