@@ -29,7 +29,7 @@ public class Teleop2903 extends CommandBase {
     }
     
     if(UsingMap.usingClaw) {
-      Robot.claw2903.powerClaw(Robot.driveJoy.getRawAxis(JoystickMap.lt) - Robot.opJoy.getRawAxis(JoystickMap.rt));
+      Robot.claw2903.powerClaw(Robot.opJoy.getRawAxis(JoystickMap.lt) - Robot.opJoy.getRawAxis(JoystickMap.rt));
 
       // if(!Robot.claw2903.clawIsOpening) {
       //   if(Robot.opJoy.getRawButton(JoystickMap.buttonRB)) {
@@ -47,7 +47,8 @@ public class Teleop2903 extends CommandBase {
     }
 
     if(UsingMap.usingArm) {
-      Robot.arm2903.rotateArm(Robot.opJoy.getRawAxis(JoystickMap.lt) - Robot.opJoy.getRawAxis(JoystickMap.rt));
+      Robot.arm2903.rotateArm(Robot.opJoy.getX());
+      Robot.arm2903.extendArm(Robot.opJoy.getY());
     }
   }
 
