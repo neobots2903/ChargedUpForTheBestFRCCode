@@ -16,7 +16,7 @@ public class Auto2903 extends CommandBase {
     running = true;
     startTime = System.currentTimeMillis();
 
-    Robot.arm2903.findBottomEncoder();
+    // Robot.arm2903.findBottomEncoder();
   }
 
   @Override
