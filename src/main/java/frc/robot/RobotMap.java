@@ -3,9 +3,9 @@ package frc.robot;
 
 public class RobotMap {
     // SparkMax motors, Power distrubition
-    public static final int motorDriveFrontLeft = 6;//19
-    public static final int motorDriveFrontRight = 8;//16
-    public static final int motorDriveBackLeft = 7;//17
+    public static final int motorDriveFrontLeft = 2;//19
+    public static final int motorDriveFrontRight = 3;//16
+    public static final int motorDriveBackLeft = 4;//17
     public static final int motorDriveBackRight = 5;//18
     public static final int motorArmRotate = -1;
     public static final int motorArmExtend = -1;

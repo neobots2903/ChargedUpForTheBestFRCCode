@@ -29,19 +29,21 @@ public class Teleop2903 extends CommandBase {
     }
     
     if(UsingMap.usingClaw) {
-      if(!Robot.claw2903.clawIsOpening) {
-        if(Robot.opJoy.getRawButton(JoystickMap.buttonRB)) {
-          Robot.claw2903.cubeMode(true);
-        }
+      Robot.claw2903.powerClaw(Robot.driveJoy.getRawAxis(JoystickMap.lt) - Robot.opJoy.getRawAxis(JoystickMap.rt));
 
-        if(Robot.opJoy.getRawButton(JoystickMap.buttonLB)) {
-          Robot.claw2903.cubeMode(false);
-        }
-      }
+      // if(!Robot.claw2903.clawIsOpening) {
+      //   if(Robot.opJoy.getRawButton(JoystickMap.buttonRB)) {
+      //     Robot.claw2903.cubeMode(true);
+      //   }
 
-      if(Robot.opJoy.getRawButton(JoystickMap.buttonA)) {
-        Robot.claw2903.suck(Robot.claw2903.sucked ? false : true);
-      }
+      //   if(Robot.opJoy.getRawButton(JoystickMap.buttonLB)) {
+      //     Robot.claw2903.cubeMode(false);
+      //   }
+      // }
+
+      // if(Robot.opJoy.getRawButton(JoystickMap.buttonA)) {
+      //   Robot.claw2903.suck(Robot.claw2903.sucked ? false : true);
+      // }
     }
 
     if(UsingMap.usingArm) {

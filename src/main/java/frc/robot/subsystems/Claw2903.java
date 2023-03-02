@@ -30,8 +30,12 @@ public class Claw2903 {
 
     public Claw2903() {
         motorClawOpener = new CANSparkMax(RobotMap.motorClawOpener, MotorType.kBrushless);
-        motorClawSucker = new CANSparkMax(RobotMap.motorClawSucker, MotorType.kBrushless);
-        motorClawFlip = new CANSparkMax(RobotMap.motorClawFlip, MotorType.kBrushless);
+        // motorClawSucker = new CANSparkMax(RobotMap.motorClawSucker, MotorType.kBrushless);
+        // motorClawFlip = new CANSparkMax(RobotMap.motorClawFlip, MotorType.kBrushless);
+    }
+
+    public void powerClaw(double power) {
+        motorClawOpener.set(power);
     }
 
     public void flipClaw(boolean rightSideUp) {
@@ -95,14 +99,6 @@ public class Claw2903 {
         clawIsOpening = false;
     }
 
-    public boolean motorClawOpenerLimit() {
-        return true;// Fix
-    }
-
-    public boolean motorClawFlipperLimit() {
-        return true;// Fix
-    }
-
     // If suckIn then power suckers sucking in for clawSuckerSuckInLengthMillis to suck in else power suckers sucking out for power suckers for clawSuckerSuckOutLengthMillis
     public void suck(boolean suckIn) {
         motorClawSucker.set(suckIn ? suckingSpeed : -suckingSpeed);
@@ -113,5 +109,13 @@ public class Claw2903 {
 
         motorClawSucker.set(0);
         sucked = sucked ? false : true;
+    }
+
+    public boolean motorClawOpenerLimit() {
+        return true;
+    }
+
+    public boolean motorClawFlipperLimit() {
+        return true;
     }
 }
