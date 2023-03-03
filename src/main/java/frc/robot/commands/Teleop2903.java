@@ -7,6 +7,8 @@ package frc.robot.commands;
 import frc.robot.JoystickMap;
 import frc.robot.Robot;
 import frc.robot.UsingMap;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -15,6 +17,8 @@ public class Teleop2903 extends CommandBase {
 
   @Override
   public void execute() {
+    SmartDashboard.putNumber("Blue thing", new Encoder(0, 0, false, Encoder.EncodingType.k1X).getDistance());
+
     Robot.telemacatrate();
 
     if(UsingMap.usingLimelight) {
@@ -36,6 +40,7 @@ public class Teleop2903 extends CommandBase {
       //     Robot.claw2903.cubeMode(true);
       //   }
 
+      
       //   if(Robot.opJoy.getRawButton(JoystickMap.buttonLB)) {
       //     Robot.claw2903.cubeMode(false);
       //   }

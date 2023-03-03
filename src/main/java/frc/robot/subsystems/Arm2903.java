@@ -6,6 +6,8 @@ import frc.robot.RobotMap;
 
 public class Arm2903 {
   // `1q
+  public static final double ARM_EXTEND_GEAR_RATIO = 6.85;
+  public static final double ARM_ROTATE_GEAR_RATIO = 60;
   public static final int TICKS_PER_REVOLUTIONS = 42;
   public static final int GEAR_DIAMETER = 2;
   public static final int distanceToTravelToTop = 10000;
@@ -38,7 +40,7 @@ public class Arm2903 {
   }
 
   public void extendArmInches(int inches) {
-    GiveJessicaBlanket.setPosition(motorArmExtend, inches / Math.PI * GEAR_DIAMETER * TICKS_PER_REVOLUTIONS);
+    GiveJessicaBlanket.setPosition(motorArmExtend, inches / Math.PI * GEAR_DIAMETER * TICKS_PER_REVOLUTIONS * ARM_EXTEND_GEAR_RATIO);
   }
 
   public void rotateArm(double speed) {
@@ -46,7 +48,7 @@ public class Arm2903 {
   }
 
   public void rotateArmDegrees(int degrees) {
-    GiveJessicaBlanket.setPosition(motorArmRotate, degrees / 360 * TICKS_PER_REVOLUTIONS);
+    GiveJessicaBlanket.setPosition(motorArmRotate, degrees / 360 * TICKS_PER_REVOLUTIONS * ARM_ROTATE_GEAR_RATIO);
   }
 
   public boolean getBottomLimit() {
