@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.RobotMap;
 
 public class Claw2903 {
@@ -32,12 +34,41 @@ public class Claw2903 {
         motorClawOpener = new CANSparkMax(RobotMap.motorClawOpener, MotorType.kBrushless);
         // motorClawSucker = new CANSparkMax(RobotMap.motorClawSucker, MotorType.kBrushless);
         // motorClawFlip = new CANSparkMax(RobotMap.motorClawFlip, MotorType.kBrushless);
+
+        new Thread() {
+            @Override
+            public void run() {
+                if(!clawActuatorInRange()) {
+                    motorClawOpener.set(0);
+                }
+            }
+        }.start();
     }
 
     public void powerClaw(double power) {
-        motorClawOpener.set(power);
+        if(!clawActuatorInRange()) {
+            motorClawOpener.set(power);
+        }
     }
 
+    public boolean clawActuatorInRange() {
+        double a = 1;
+        return clawActuatorDistance() <= a || clawActuatorDistance() >= 12 - a;
+    }
+
+    public double clawActuatorDistance() {
+        return new Encoder(0, 0, false, Encoder.EncodingType.k1X).getDistance();
+    }
+    
+
+
+
+
+
+
+
+
+    
     public void flipClaw(boolean rightSideUp) {
         if(clawIsFlipping) {
             return;

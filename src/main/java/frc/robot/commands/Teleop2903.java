@@ -17,7 +17,7 @@ public class Teleop2903 extends CommandBase {
 
   @Override
   public void execute() {
-    SmartDashboard.putNumber("Blue thing", new Encoder(0, 0, false, Encoder.EncodingType.k1X).getDistance());
+    SmartDashboard.putNumber("Blue thing", Robot.claw2903.clawActuatorDistance());
 
     Robot.telemacatrate();
 
