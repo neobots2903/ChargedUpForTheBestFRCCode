@@ -56,12 +56,12 @@ public class Claw2903 {
     }
 
     public boolean clawActuatorInRange() {
-        double EXTENDED_ENCODER_POSITION = 100;
-        double position = motorClawOpener.getEncoder().getPosition();
-        return position > startPosition && position < startPosition + EXTENDED_ENCODER_POSITION;
+        // double EXTENDED_ENCODER_POSITION = 100;
+        // double position = motorClawOpener.getEncoder().getPosition();
+        // return position > startPosition && position < startPosition + EXTENDED_ENCODER_POSITION;
 
-        // double a = 1;
-        // return clawActuatorDistance() <= a || clawActuatorDistance() >= 12 - a;
+        double a = 1;
+        return clawActuatorDistance() <= a || clawActuatorDistance() >= 12 - a;
     }
 
     public double clawActuatorDistance() {

@@ -37,14 +37,14 @@ public class Arm2903 {
           if(!armRotateInRange()) {
               motorArmExtend.set(0);
           }
-      }
-  }.start();
+        }
+    }.start();
   }
 
   public void extendArm(double speed) {
-    if(!armRotateInRange()) {
+    if(armRotateInRange()) {
       motorArmRotate.set(speed);
-  }
+    }
   }
 
   public void extendArmInches(int inches) {
@@ -52,7 +52,7 @@ public class Arm2903 {
   }
 
   public void rotateArm(double speed) {
-    if(!armRotateInRange()) {
+    if(armRotateInRange()) {
         motorArmRotate.set(speed);
     }
   }
@@ -67,15 +67,15 @@ public class Arm2903 {
 
 
 
-  public boolean armRotateInRange() {
-    double ROTATED_ENCODER_POSITION = 100;
-    double position = motorArmRotate.getEncoder().getPosition();
-    return position > bottomEncoder && position < bottomEncoder + ROTATED_ENCODER_POSITION;
+  public boolean armRotateInRange() {return true;
+    // double ROTATED_ENCODER_POSITION = 90 / 360 * TICKS_PER_REVOLUTIONS * ARM_ROTATE_GEAR_RATIO;
+    // double position = motorArmRotate.getEncoder().getPosition();
+    // return position > bottomEncoder && position < bottomEncoder + ROTATED_ENCODER_POSITION;
   }
 
-  public boolean armExtendInRange() {
-    double EXTENDED_ENCODER_POSITION = 100;
-    double position = motorArmExtend.getEncoder().getPosition();
-    return position > bottomEncoder && position < bottomEncoder + EXTENDED_ENCODER_POSITION;
+  public boolean armExtendInRange() {return true;
+    // double EXTENDED_ENCODER_POSITION = 35 / Math.PI * GEAR_DIAMETER * TICKS_PER_REVOLUTIONS * ARM_EXTEND_GEAR_RATIO;
+    // double position = motorArmExtend.getEncoder().getPosition();
+    // return position > bottomEncoder && position < bottomEncoder + EXTENDED_ENCODER_POSITION;
   }
 }

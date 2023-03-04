@@ -43,7 +43,7 @@ public class Drive2903 {
     new Thread() {
       @Override
       public void run() {
-        diffDrive.arcadeDrive(forward, turn);
+        diffDrive.arcadeDrive(forward, turn, false);
 
         try {
           Thread.sleep((long) (seconds * 1000));

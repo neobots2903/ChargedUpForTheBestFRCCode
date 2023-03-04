@@ -102,26 +102,27 @@ public class Robot extends TimedRobot {
     }
 
     public static void telemacatrate() {
-        if(UsingMap.usingDrive) {
-            SmartDashboard.putNumber("MotorDriveFrontLeft", drive2903.motorDriveFrontLeft.getMotorTemperature());
-            SmartDashboard.putNumber("MotorDriveFrontRight", drive2903.motorDriveFrontLeft.getMotorTemperature());
-            SmartDashboard.putNumber("MotorDriveBackLeft", drive2903.motorDriveFrontLeft.getMotorTemperature());
-            SmartDashboard.putNumber("MotorDriveBackRight", drive2903.motorDriveFrontLeft.getMotorTemperature());
-        }
+        // if(UsingMap.usingDrive) {
+        //     SmartDashboard.putNumber("MotorDriveFrontLeft", drive2903.motorDriveFrontLeft.getMotorTemperature());
+        //     SmartDashboard.putNumber("MotorDriveFrontRight", drive2903.motorDriveFrontLeft.getMotorTemperature());
+        //     SmartDashboard.putNumber("MotorDriveBackLeft", drive2903.motorDriveFrontLeft.getMotorTemperature());
+        //     SmartDashboard.putNumber("MotorDriveBackRight", drive2903.motorDriveFrontLeft.getMotorTemperature());
+        // }
+
+        // if(UsingMap.usingClaw) {
+        //     SmartDashboard.putNumber("MotorClawOpener", claw2903.motorClawOpener.getMotorTemperature());
+        //     SmartDashboard.putNumber("MotorClawSucker", claw2903.motorClawSucker.getMotorTemperature());
+        //     SmartDashboard.putNumber("MotorClawFlip", claw2903.motorClawFlip.getMotorTemperature());
+        // }
 
         if(UsingMap.usingClaw) {
-            SmartDashboard.putNumber("MotorClawOpener", claw2903.motorClawOpener.getMotorTemperature());
-            SmartDashboard.putNumber("MotorClawSucker", claw2903.motorClawSucker.getMotorTemperature());
-            SmartDashboard.putNumber("MotorClawFlip", claw2903.motorClawFlip.getMotorTemperature());
-        }
-
-        if(UsingMap.usingClaw) {
-            System.out.println("Blue thing: " + new Encoder(0, 0, false, Encoder.EncodingType.k1X).getDistance());
-            System.out.println("ClawActuatorMotor: " + Robot.claw2903.motorClawOpener.getEncoder().getPosition());
+            //System.out.println("Blue thing: " + new Encoder(0, 0, false, Encoder.EncodingType.k1X).getDistance());
+            //System.out.println("ClawActuatorMotor: " + Robot.claw2903.motorClawOpener.getEncoder().getPosition());
         }
         
         if(UsingMap.usingArm) {
-            System.out.println("Pivot: " + Robot.arm2903.motorArmRotate.getEncoder().getPosition());
+            //System.out.println("Rotate: " + Robot.arm2903.motorArmRotate.getEncoder().getPosition());
+            //System.out.println("Extend: " + Robot.arm2903.motorArmExtend.getEncoder().getPosition());
         }
     }
 }
