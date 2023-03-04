@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -113,5 +114,9 @@ public class Robot extends TimedRobot {
             SmartDashboard.putNumber("MotorClawSucker", claw2903.motorClawSucker.getMotorTemperature());
             SmartDashboard.putNumber("MotorClawFlip", claw2903.motorClawFlip.getMotorTemperature());
         }
+
+        if(UsingMap.usingClaw) System.out.println("Blue thing: " + new Encoder(0, 0, false, Encoder.EncodingType.k1X).getDistance());
+        
+        if(UsingMap.usingArm) System.out.println("Pivot: " + Robot.arm2903.motorArmRotate.getEncoder().getPosition());
     }
 }

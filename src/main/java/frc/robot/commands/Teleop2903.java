@@ -17,8 +17,6 @@ public class Teleop2903 extends CommandBase {
 
   @Override
   public void execute() {
-    SmartDashboard.putNumber("Blue thing", Robot.claw2903.clawActuatorDistance());
-
     Robot.telemacatrate();
 
     if(UsingMap.usingLimelight) {
@@ -52,8 +50,8 @@ public class Teleop2903 extends CommandBase {
     }
 
     if(UsingMap.usingArm) {
-      Robot.arm2903.rotateArm(Robot.opJoy.getX());
-      Robot.arm2903.extendArm(Robot.opJoy.getY());
+      Robot.arm2903.rotateArm(Robot.opJoy.getX() / 2);
+      Robot.arm2903.extendArm(Robot.opJoy.getY() / 2);
     }
   }
 

@@ -57,7 +57,8 @@ public class Claw2903 {
     }
 
     public double clawActuatorDistance() {
-        return new Encoder(0, 0, false, Encoder.EncodingType.k1X).getDistance();
+        return 6.0;
+        // return new Encoder(0, 0, false, Encoder.EncodingType.k1X).getDistance();
     }
     
 

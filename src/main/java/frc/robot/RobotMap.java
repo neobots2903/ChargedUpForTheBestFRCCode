@@ -9,7 +9,7 @@ public class RobotMap {
     public static final int motorDriveBackRight = 5;//18
     public static final int motorArmRotate = 6;
     public static final int motorArmExtend = 7;
-    public static final int motorClawOpener = 8;
+    public static final int motorClawOpener = 9;
     // public static final int motorClawSucker = -1;
     // public static final int motorClawFlip = -1;
 

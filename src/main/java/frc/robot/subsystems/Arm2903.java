@@ -22,17 +22,17 @@ public class Arm2903 {
     motorArmRotate = new CANSparkMax(RobotMap.motorArmRotate, MotorType.kBrushless);
     GiveJessicaBlanket.initSmartMotion(motorArmExtend, 0, 0, 0, 0, 0, 0, 0);
     GiveJessicaBlanket.initSmartMotion(motorArmRotate, 0, 0, 0, 0, 0, 0, 0);
-  }
-
-  public void findBottomEncoder() {
-    motorArmRotate.set(downSpeed);
-
-    while(!getBottomLimit()) {
-      // Wait for arm to go down
-    }
-
-    motorArmRotate.set(0);
+  
     bottomEncoder = motorArmRotate.getEncoder().getPosition();
+
+    new Thread() {
+      @Override
+      public void run() {
+          if(!armRotateInRange()) {
+              motorArmRotate.set(0);
+          }
+      }
+  }.start();
   }
 
   public void extendArm(double speed) {
@@ -44,7 +44,9 @@ public class Arm2903 {
   }
 
   public void rotateArm(double speed) {
-    motorArmRotate.set(speed);
+    if(!armRotateInRange()) {
+        motorArmRotate.set(speed);
+    }
   }
 
   public void rotateArmDegrees(int degrees) {
@@ -53,5 +55,11 @@ public class Arm2903 {
 
   public boolean getBottomLimit() {
     return false;
+  }
+
+
+
+  public boolean armRotateInRange() {
+    return true;//motorArmRotate.getEncoder().getPosition();
   }
 }
