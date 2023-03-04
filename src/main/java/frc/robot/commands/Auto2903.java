@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class Auto2903 extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   public boolean running = true;
-  public double error = 0.5;
   public long startTime = 0;
 
   @Override
