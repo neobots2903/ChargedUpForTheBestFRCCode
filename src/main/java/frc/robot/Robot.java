@@ -115,8 +115,13 @@ public class Robot extends TimedRobot {
             SmartDashboard.putNumber("MotorClawFlip", claw2903.motorClawFlip.getMotorTemperature());
         }
 
-        if(UsingMap.usingClaw) System.out.println("Blue thing: " + new Encoder(0, 0, false, Encoder.EncodingType.k1X).getDistance());
+        if(UsingMap.usingClaw) {
+            System.out.println("Blue thing: " + new Encoder(0, 0, false, Encoder.EncodingType.k1X).getDistance());
+            System.out.println("ClawActuatorMotor: " + Robot.claw2903.motorClawOpener.getEncoder().getPosition());
+        }
         
-        if(UsingMap.usingArm) System.out.println("Pivot: " + Robot.arm2903.motorArmRotate.getEncoder().getPosition());
+        if(UsingMap.usingArm) {
+            System.out.println("Pivot: " + Robot.arm2903.motorArmRotate.getEncoder().getPosition());
+        }
     }
 }

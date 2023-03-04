@@ -13,6 +13,7 @@ public class Arm2903 {
   public static final int distanceToTravelToTop = 10000;
   public static final double downSpeed = 1;
   public double bottomEncoder;
+  public double unextendedEncoder;
 
   public CANSparkMax motorArmExtend;
   public CANSparkMax motorArmRotate;
@@ -24,6 +25,7 @@ public class Arm2903 {
     GiveJessicaBlanket.initSmartMotion(motorArmRotate, 0, 0, 0, 0, 0, 0, 0);
   
     bottomEncoder = motorArmRotate.getEncoder().getPosition();
+    unextendedEncoder = motorArmExtend.getEncoder().getPosition();
 
     new Thread() {
       @Override
@@ -31,12 +33,18 @@ public class Arm2903 {
           if(!armRotateInRange()) {
               motorArmRotate.set(0);
           }
+
+          if(!armRotateInRange()) {
+              motorArmExtend.set(0);
+          }
       }
   }.start();
   }
 
   public void extendArm(double speed) {
-    motorArmExtend.set(speed);
+    if(!armRotateInRange()) {
+      motorArmRotate.set(speed);
+  }
   }
 
   public void extendArmInches(int inches) {
@@ -60,6 +68,14 @@ public class Arm2903 {
 
 
   public boolean armRotateInRange() {
-    return true;//motorArmRotate.getEncoder().getPosition();
+    double ROTATED_ENCODER_POSITION = 100;
+    double position = motorArmRotate.getEncoder().getPosition();
+    return position > bottomEncoder && position < bottomEncoder + ROTATED_ENCODER_POSITION;
+  }
+
+  public boolean armExtendInRange() {
+    double EXTENDED_ENCODER_POSITION = 100;
+    double position = motorArmExtend.getEncoder().getPosition();
+    return position > bottomEncoder && position < bottomEncoder + EXTENDED_ENCODER_POSITION;
   }
 }

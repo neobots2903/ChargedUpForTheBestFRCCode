@@ -26,6 +26,8 @@ public class Claw2903 {
     public static boolean clawIsOpening = false;
     public static boolean sucked = false;
 
+    public double startPosition = 0;
+
     public CANSparkMax motorClawOpener;
     public CANSparkMax motorClawSucker;
     public CANSparkMax motorClawFlip;
@@ -34,6 +36,8 @@ public class Claw2903 {
         motorClawOpener = new CANSparkMax(RobotMap.motorClawOpener, MotorType.kBrushless);
         // motorClawSucker = new CANSparkMax(RobotMap.motorClawSucker, MotorType.kBrushless);
         // motorClawFlip = new CANSparkMax(RobotMap.motorClawFlip, MotorType.kBrushless);
+
+        startPosition = motorClawOpener.getEncoder().getPosition();
 
         new Thread() {
             @Override
@@ -52,8 +56,12 @@ public class Claw2903 {
     }
 
     public boolean clawActuatorInRange() {
-        double a = 1;
-        return clawActuatorDistance() <= a || clawActuatorDistance() >= 12 - a;
+        double EXTENDED_ENCODER_POSITION = 100;
+        double position = motorClawOpener.getEncoder().getPosition();
+        return position > startPosition && position < startPosition + EXTENDED_ENCODER_POSITION;
+
+        // double a = 1;
+        // return clawActuatorDistance() <= a || clawActuatorDistance() >= 12 - a;
     }
 
     public double clawActuatorDistance() {
