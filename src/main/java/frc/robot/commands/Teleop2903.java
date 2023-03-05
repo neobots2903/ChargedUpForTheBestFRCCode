@@ -40,21 +40,22 @@ public class Teleop2903 extends CommandBase {
     
     if(UsingMap.usingClaw) {
       double power = 0;
+      double speed = 0.3 ;
 
       if(Robot.opJoy.getRawButton(JoystickMap.buttonRB)) {
-        power = -0.1;
+        power = -speed;
       }
 
       if(Robot.opJoy.getRawButton(JoystickMap.buttonLB)) {
-        power = 0.1;
+        power = speed;
       }
 
       Robot.claw2903.motorClawOpener.set(power);
     }
 
     if(UsingMap.usingArm) {
-      Robot.arm2903.motorArmRotate.set(Robot.opJoy.getY() / 10);
-      Robot.arm2903.motorArmExtend.set(Robot.opJoy.getRawAxis(4) / 2);
+      Robot.arm2903.motorArmRotate.set(Robot.opJoy.getY() * 0.3);
+      Robot.arm2903.motorArmExtend.set(Robot.opJoy.getRawAxis(4));
     }
   }
 

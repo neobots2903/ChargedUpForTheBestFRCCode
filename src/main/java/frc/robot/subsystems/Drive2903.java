@@ -30,6 +30,8 @@ public class Drive2903 {
     MotorControllerGroup right = new MotorControllerGroup(motorDriveFrontRight, motorDriveBackRight);
     diffDrive = new DifferentialDrive(left, right);
     diffDrive.setDeadband(0.05);
+
+    turnOnBrakes(false);
   }
 
   public void turnOnBrakes(boolean breaksOn) {

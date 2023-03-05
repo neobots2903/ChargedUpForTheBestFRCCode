@@ -121,7 +121,7 @@ public class Robot extends TimedRobot {
         }
         
         if(UsingMap.usingArm) {
-            //System.out.println("Rotate: " + Robot.arm2903.motorArmRotate.getEncoder().getPosition());
+            System.out.println("Rotate: " + Robot.arm2903.motorArmRotate.getEncoder().getPosition());
             //System.out.println("Extend: " + Robot.arm2903.motorArmExtend.getEncoder().getPosition());
         }
     }
