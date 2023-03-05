@@ -10,9 +10,9 @@ import frc.robot.subsystems.Arm2903;
 import frc.robot.subsystems.Claw2903;
 import frc.robot.subsystems.Drive2903;
 import frc.robot.subsystems.Limelight2903;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -37,6 +37,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        System.out.println("Enabling robot");
+
         teleop = new Teleop2903();
 
         driveJoy = new Joystick(RobotMap.driveJoy);
@@ -116,12 +118,12 @@ public class Robot extends TimedRobot {
         // }
 
         if(UsingMap.usingClaw) {
-            //System.out.println("Blue thing: " + new Encoder(0, 0, false, Encoder.EncodingType.k1X).getDistance());
             //System.out.println("ClawActuatorMotor: " + Robot.claw2903.motorClawOpener.getEncoder().getPosition());
         }
         
         if(UsingMap.usingArm) {
-            System.out.println("Rotate: " + Robot.arm2903.motorArmRotate.getEncoder().getPosition());
+            //Robot.arm2903.motorArmRotate.setIdleMode(IdleMode.kCoast);
+            //System.out.println("Rotate: " + Robot.arm2903.motorArmRotate.getEncoder().getPosition());
             //System.out.println("Extend: " + Robot.arm2903.motorArmExtend.getEncoder().getPosition());
         }
     }

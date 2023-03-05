@@ -29,18 +29,28 @@ public class Teleop2903 extends CommandBase {
     if(UsingMap.usingDrive) {
       Robot.drive2903.arcadeDrive(-Robot.driveJoy.getY(), -Robot.driveJoy.getX(), true);
 
-      if(Robot.driveJoy.getRawButton(JoystickMap.buttonA)) {
+      /* Logitech Dual Action
+       * A: 2
+       * B: 3
+       * 
+       * Controller()
+       * A: 1
+       * B: 2
+       */
+      if(Robot.driveJoy.getRawButton(2)) {
+        System.out.println("Coast mode");
         Robot.drive2903.turnOnBrakes(false);
       }
 
-      if(Robot.driveJoy.getRawButton(JoystickMap.buttonB)) {
+      if(Robot.driveJoy.getRawButton(3)) {
+        System.out.println("Brakes mode");
         Robot.drive2903.turnOnBrakes(true);
       }
     }
     
     if(UsingMap.usingClaw) {
       double power = 0;
-      double speed = 0.3 ;
+      double speed = 0.3;
 
       if(Robot.opJoy.getRawButton(JoystickMap.buttonRB)) {
         power = -speed;
@@ -54,8 +64,8 @@ public class Teleop2903 extends CommandBase {
     }
 
     if(UsingMap.usingArm) {
-      Robot.arm2903.motorArmRotate.set(Robot.opJoy.getY() * 0.3);
-      Robot.arm2903.motorArmExtend.set(Robot.opJoy.getRawAxis(4));
+      Robot.arm2903.motorArmRotate.set(Robot.opJoy.getY());
+      Robot.arm2903.motorArmExtend.set(Robot.opJoy.getRawAxis(4) * 0.5);
     }
   }
 

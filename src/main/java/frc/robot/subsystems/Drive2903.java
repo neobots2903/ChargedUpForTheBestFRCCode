@@ -15,6 +15,8 @@ public class Drive2903 {
   public CANSparkMax motorDriveFrontRight;
   public CANSparkMax motorDriveBackLeft;
   public CANSparkMax motorDriveBackRight;
+  public MotorControllerGroup left;
+  public MotorControllerGroup right;
   public DifferentialDrive diffDrive;
 
   public Drive2903() {
@@ -26,8 +28,8 @@ public class Drive2903 {
     motorDriveFrontRight.setInverted(true);
     motorDriveBackRight.setInverted(true);
 
-    MotorControllerGroup left = new MotorControllerGroup(motorDriveFrontLeft, motorDriveBackLeft);
-    MotorControllerGroup right = new MotorControllerGroup(motorDriveFrontRight, motorDriveBackRight);
+    left = new MotorControllerGroup(motorDriveFrontLeft, motorDriveBackLeft);
+    right = new MotorControllerGroup(motorDriveFrontRight, motorDriveBackRight);
     diffDrive = new DifferentialDrive(left, right);
     diffDrive.setDeadband(0.05);
 
@@ -50,18 +52,14 @@ public class Drive2903 {
   }
 
   public void arcadeDriveSeconds(double forward, double turn, double seconds) {
-    new Thread() {
-      @Override
-      public void run() {
-        diffDrive.arcadeDrive(forward, turn, false);
+    double startTime = System.currentTimeMillis();
 
-        try {
-          Thread.sleep((long) (seconds * 1000));
-        } catch(InterruptedException exc) {}
+    while(System.currentTimeMillis() <= startTime + seconds * 1000) {
+      diffDrive.feed();
+      diffDrive.arcadeDrive(forward, turn, false);
+    }
 
-        diffDrive.arcadeDrive(0, 0);
-      }
-    }.start();
+    diffDrive.arcadeDrive(0, 0);
   }
 
   // To go backwords give a negative speed
