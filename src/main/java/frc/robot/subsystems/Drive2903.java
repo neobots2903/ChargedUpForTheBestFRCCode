@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -29,6 +30,13 @@ public class Drive2903 {
     MotorControllerGroup right = new MotorControllerGroup(motorDriveFrontRight, motorDriveBackRight);
     diffDrive = new DifferentialDrive(left, right);
     diffDrive.setDeadband(0.05);
+  }
+
+  public void turnOnBrakes(boolean breaksOn) {
+    motorDriveFrontLeft.setIdleMode(breaksOn ? IdleMode.kBrake : IdleMode.kCoast);
+    motorDriveFrontRight.setIdleMode(breaksOn ? IdleMode.kBrake : IdleMode.kCoast);
+    motorDriveBackLeft.setIdleMode(breaksOn ? IdleMode.kBrake : IdleMode.kCoast);
+    motorDriveBackRight.setIdleMode(breaksOn ? IdleMode.kBrake : IdleMode.kCoast);
   }
 
   public void arcadeDrive(double forward, double turn) {

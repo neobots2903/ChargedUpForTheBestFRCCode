@@ -28,6 +28,14 @@ public class Teleop2903 extends CommandBase {
 
     if(UsingMap.usingDrive) {
       Robot.drive2903.arcadeDrive(-Robot.driveJoy.getY(), -Robot.driveJoy.getX(), true);
+
+      if(Robot.driveJoy.getRawButton(JoystickMap.buttonA)) {
+        Robot.drive2903.turnOnBrakes(false);
+      }
+
+      if(Robot.driveJoy.getRawButton(JoystickMap.buttonB)) {
+        Robot.drive2903.turnOnBrakes(true);
+      }
     }
     
     if(UsingMap.usingClaw) {

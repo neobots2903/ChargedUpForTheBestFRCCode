@@ -18,14 +18,7 @@ public class Auto2903 extends CommandBase {
 
   @Override
   public void execute() {
-    GiveJessicaBlanket.blanket();
-
-
-
-    // Robot.drive2903.arcadeDriveSeconds(0.25, 0, 3);
-
-
-
+    Robot.drive2903.arcadeDriveSeconds(0.25, 0, 3);
 
     // Robot.limelight2903.setPipeline(Limelight2903.pipelineType.APRIL_TAG);
     
