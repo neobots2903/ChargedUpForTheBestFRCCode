@@ -43,14 +43,6 @@ public class Drive2903 {
     motorDriveBackRight.setIdleMode(breaksOn ? IdleMode.kBrake : IdleMode.kCoast);
   }
 
-  public void arcadeDrive(double forward, double turn) {
-    diffDrive.arcadeDrive(forward, turn);
-  }
-
-  public void arcadeDrive(double forward, double turn, boolean squareInputs) {
-    diffDrive.arcadeDrive(forward, turn, squareInputs);
-  }
-
   public void arcadeDriveSeconds(double forward, double turn, double seconds) {
     double startTime = System.currentTimeMillis();
 
@@ -69,7 +61,7 @@ public class Drive2903 {
       diffDrive.arcadeDrive(forward, turn);
     }
 
-    diffDrive.arcadeDrive(0, 0);
+    diffDrive.stopMotor();
   }
 
   public static double ticksToInches(double rev) {
