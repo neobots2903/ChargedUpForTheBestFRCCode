@@ -27,7 +27,7 @@ public class Teleop2903 extends CommandBase {
     }
 
     if(UsingMap.usingDrive) {
-      Robot.drive2903.arcadeDrive(-Robot.driveJoy.getY(), -Robot.driveJoy.getX(), true);
+      Robot.drive2903.diffDrive.arcadeDrive(-Robot.driveJoy.getY(), -Robot.driveJoy.getX(), true);
 
       /* Logitech Dual Action
        * A: 2
@@ -71,7 +71,7 @@ public class Teleop2903 extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    Robot.drive2903.arcadeDrive(0, 0);
+    Robot.drive2903.diffDrive.stopMotor();
   }
 
   @Override

@@ -45,7 +45,7 @@ public class Auto2903 extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     running = false;
-    Robot.drive2903.arcadeDrive(0, 0);
+    Robot.drive2903.diffDrive.stopMotor();
   }
 
   @Override
