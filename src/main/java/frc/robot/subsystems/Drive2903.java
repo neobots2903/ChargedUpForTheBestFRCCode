@@ -55,11 +55,10 @@ public class Drive2903 {
     double startTime = System.currentTimeMillis();
 
     while(System.currentTimeMillis() <= startTime + seconds * 1000) {
-      diffDrive.feed();
       diffDrive.arcadeDrive(forward, turn, false);
     }
 
-    diffDrive.arcadeDrive(0, 0);
+    diffDrive.stopMotor();
   }
 
   // To go backwords give a negative speed
