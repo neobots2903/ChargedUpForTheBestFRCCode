@@ -1,9 +1,6 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
-import frc.robot.subsystems.GiveJessicaBlanket;
-import frc.robot.subsystems.Limelight2903;
-import edu.wpi.first.wpilibj.MotorSafety;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Auto2903 extends CommandBase {
