@@ -31,7 +31,7 @@ public class Auto2903 extends CommandBase {
     //   // Wait for robot to get close to april tag
     // }
 
-    // Robot.drive2903.arcadeDrive(0, 0);
+    // Robot.drive2903.stopMotor();
     // Robot.arm2903.rotateArmDegrees(90);
     // Robot.arm2903.extendArmInches(35);
 
