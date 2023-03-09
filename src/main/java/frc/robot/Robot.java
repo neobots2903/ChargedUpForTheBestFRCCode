@@ -39,6 +39,13 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         System.out.println("Enabling robot");
 
+        if(UsingMap.isPracticing) {
+            UsingMap.usingArm = false;
+            UsingMap.usingClaw = false;
+            UsingMap.usingDrive = true;
+            UsingMap.usingLimelight = false;
+        }
+
         teleop = new Teleop2903();
 
         driveJoy = new Joystick(RobotMap.driveJoy);

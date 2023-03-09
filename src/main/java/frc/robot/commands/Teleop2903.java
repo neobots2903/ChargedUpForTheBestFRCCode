@@ -7,8 +7,6 @@ package frc.robot.commands;
 import frc.robot.JoystickMap;
 import frc.robot.Robot;
 import frc.robot.UsingMap;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -37,12 +35,12 @@ public class Teleop2903 extends CommandBase {
        * A: 1
        * B: 2
        */
-      if(Robot.driveJoy.getRawButton(2)) {
+      if(Robot.driveJoy.getRawButton(1)) {
         System.out.println("Coast mode");
         Robot.drive2903.turnOnBrakes(false);
       }
 
-      if(Robot.driveJoy.getRawButton(3)) {
+      if(Robot.driveJoy.getRawButton(2)) {
         System.out.println("Brakes mode");
         Robot.drive2903.turnOnBrakes(true);
       }
