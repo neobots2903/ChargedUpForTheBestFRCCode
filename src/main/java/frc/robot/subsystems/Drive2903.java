@@ -11,9 +11,6 @@ public class Drive2903 {
   public static final long SLEEP_TIME_MILLIS = 5;
   public static final double AMOUNT = 0.01;// Heigher = less time but less accuracy
   public static final double DEADBAND = 0.1;
-  public static final int TICKS_PER_REV = 4096;
-  public static final double WHEEL_CIRCUMFERENCE = Math.PI * 6;// In inches
-  public static final double GEAR_RATIO = 10.714284;
   public double targetForwardSpeed = 0;
   public double targetRotateSpeed = 0;
   public double forwardSpeed = 0;
@@ -77,38 +74,13 @@ public class Drive2903 {
     motorDriveBackRight.setIdleMode(breaksOn ? IdleMode.kBrake : IdleMode.kCoast);
   }
 
-  public void arcadeDrive(double forward, double turn) {
-    diffDrive.arcadeDrive(forward, turn);
-  }
-
-  public void arcadeDrive(double forward, double turn, boolean squareInputs) {
-    diffDrive.arcadeDrive(forward, turn, squareInputs);
-  }
-
   public void arcadeDriveSeconds(double forward, double turn, double seconds) {
-    double startTime = System.currentTimeMillis();
+    trapezoidalArcadeDrive(forward, turn);
 
-    while(System.currentTimeMillis() <= startTime + seconds * 1000) {
-      diffDrive.arcadeDrive(forward, turn, false);
-    }
-
-    diffDrive.stopMotor();
-  }
-
-  // To go backwords give a negative speed
-  public void arcadeDriveDistance(double forward, double turn, double distance) {
-    double startPos = motorDriveFrontLeft.getEncoder().getPosition();
-
-    while(ticksToInches(motorDriveFrontLeft.getEncoder().getPosition() - startPos) < Math.abs(distance)) {
-      diffDrive.arcadeDrive(forward, turn);
-    }
+    try {
+      Thread.sleep((long) (seconds * 1000));
+    } catch (InterruptedException exc) {}
 
     diffDrive.stopMotor();
-  }
-
-  public static double ticksToInches(double rev) {
-    double wheelRev = rev / GEAR_RATIO;
-    double distance = wheelRev * WHEEL_CIRCUMFERENCE;
-    return Math.abs(distance);
   }
 }
