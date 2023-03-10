@@ -25,7 +25,7 @@ public class Teleop2903 extends CommandBase {
     }
 
     if(UsingMap.usingDrive) {
-      Robot.drive2903.diffDrive.arcadeDrive(-Robot.driveJoy.getY(), -Robot.driveJoy.getX(), true);
+      Robot.drive2903.trapezoidalArcadeDrive(-Robot.driveJoy.getY(), -Robot.driveJoy.getX());
 
       /* Logitech Dual Action
        * A: 2

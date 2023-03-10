@@ -8,9 +8,16 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import frc.robot.RobotMap;
 
 public class Drive2903 {
+  public static final long SLEEP_TIME_MILLIS = 5;
+  public static final double AMOUNT = 0.01;// Heigher = less time but less accuracy
+  public static final double DEADBAND = 0.1;
   public static final int TICKS_PER_REV = 4096;
   public static final double WHEEL_CIRCUMFERENCE = Math.PI * 6;// In inches
   public static final double GEAR_RATIO = 10.714284;
+  public static double targetForwardSpeed = 0;
+  public static double targetRotateSpeed = 0;
+  public static double forwardSpeed = 0;
+  public static double rotateSpeed = 0;
   public CANSparkMax motorDriveFrontLeft;
   public CANSparkMax motorDriveFrontRight;
   public CANSparkMax motorDriveBackLeft;
@@ -33,7 +40,34 @@ public class Drive2903 {
     diffDrive = new DifferentialDrive(left, right);
     diffDrive.setDeadband(0.05);
 
-    turnOnBrakes(false);
+    turnOnBrakes(true);
+
+    new Thread() {
+      @Override
+      public void run() {
+        while(true) {
+          if(forwardSpeed < targetForwardSpeed) forwardSpeed += AMOUNT;
+          if(forwardSpeed > targetForwardSpeed) forwardSpeed -= AMOUNT;
+          if(rotateSpeed < targetRotateSpeed) rotateSpeed += AMOUNT;
+          if(rotateSpeed > targetRotateSpeed) rotateSpeed -= AMOUNT;
+
+          if(Math.abs(forwardSpeed) - DEADBAND < 0 && Math.abs(rotateSpeed) - DEADBAND < 0) {
+            diffDrive.stopMotor();
+          } else {
+            diffDrive.arcadeDrive(forwardSpeed, rotateSpeed);
+          }
+
+          try {
+          Thread.sleep(SLEEP_TIME_MILLIS);
+          } catch(InterruptedException exc) {}
+        }
+      }
+    }.start();
+  }
+
+  public void trapezoidalArcadeDrive(double forwardSpeed, double rotateSpeed) {
+    targetForwardSpeed = forwardSpeed;
+    targetRotateSpeed = rotateSpeed;
   }
 
   public void turnOnBrakes(boolean breaksOn) {
