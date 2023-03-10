@@ -14,10 +14,10 @@ public class Drive2903 {
   public static final int TICKS_PER_REV = 4096;
   public static final double WHEEL_CIRCUMFERENCE = Math.PI * 6;// In inches
   public static final double GEAR_RATIO = 10.714284;
-  public static double targetForwardSpeed = 0;
-  public static double targetRotateSpeed = 0;
-  public static double forwardSpeed = 0;
-  public static double rotateSpeed = 0;
+  public double targetForwardSpeed = 0;
+  public double targetRotateSpeed = 0;
+  public double forwardSpeed = 0;
+  public double rotateSpeed = 0;
   public CANSparkMax motorDriveFrontLeft;
   public CANSparkMax motorDriveFrontRight;
   public CANSparkMax motorDriveBackLeft;
