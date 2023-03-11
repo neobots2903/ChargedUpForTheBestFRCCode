@@ -29,14 +29,13 @@ public class Drive2903 {
     motorDriveBackLeft = new CANSparkMax(RobotMap.motorDriveBackLeft, MotorType.kBrushless);
     motorDriveBackRight = new CANSparkMax(RobotMap.motorDriveBackRight, MotorType.kBrushless);
 
-    motorDriveFrontRight.setInverted(true);
-    motorDriveBackRight.setInverted(true);
-
     left = new MotorControllerGroup(motorDriveFrontLeft, motorDriveBackLeft);
     right = new MotorControllerGroup(motorDriveFrontRight, motorDriveBackRight);
     diffDrive = new DifferentialDrive(left, right);
     diffDrive.setDeadband(0.05);
 
+    right.setInverted(true);
+    
     turnOnBrakes(true);
 
     new Thread() {
