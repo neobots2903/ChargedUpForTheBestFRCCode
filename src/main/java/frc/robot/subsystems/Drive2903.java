@@ -9,8 +9,7 @@ import frc.robot.RobotMap;
 
 public class Drive2903 {
   public static final long SLEEP_TIME_MILLIS = 5;
-  public static final double AMOUNT = 0.01;// Heigher = less time but less accuracy
-  public static final double DEADBAND = 0.1;
+  public static final double AMOUNT = 0.01;
   public double targetForwardSpeed = 0;
   public double targetRotateSpeed = 0;
   public double forwardSpeed = 0;
@@ -28,9 +27,9 @@ public class Drive2903 {
     motorDriveFrontRight = new CANSparkMax(RobotMap.motorDriveFrontRight, MotorType.kBrushless);
     motorDriveBackLeft = new CANSparkMax(RobotMap.motorDriveBackLeft, MotorType.kBrushless);
     motorDriveBackRight = new CANSparkMax(RobotMap.motorDriveBackRight, MotorType.kBrushless);
-
     left = new MotorControllerGroup(motorDriveFrontLeft, motorDriveBackLeft);
     right = new MotorControllerGroup(motorDriveFrontRight, motorDriveBackRight);
+
     diffDrive = new DifferentialDrive(left, right);
     diffDrive.setDeadband(0.05);
 
@@ -47,11 +46,7 @@ public class Drive2903 {
           if(rotateSpeed < targetRotateSpeed) rotateSpeed += AMOUNT;
           if(rotateSpeed > targetRotateSpeed) rotateSpeed -= AMOUNT;
 
-          if(Math.abs(forwardSpeed) - DEADBAND < 0 && Math.abs(rotateSpeed) - DEADBAND < 0) {
-            diffDrive.stopMotor();
-          } else {
-            diffDrive.arcadeDrive(forwardSpeed, rotateSpeed);
-          }
+          diffDrive.arcadeDrive(forwardSpeed, rotateSpeed);
 
           try {
           Thread.sleep(SLEEP_TIME_MILLIS);

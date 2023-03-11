@@ -4,8 +4,10 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 
 public class GiveJessicaBlanket {
-  public static void initSmartMotion(CANSparkMax motor, double p, double i, double d, double maxVel, double minVel, double maxAcc, double allowedErr) {
-    SparkMaxPIDController pidController = motor.getPIDController();
+  public SparkMaxPIDController pidController;
+
+  public GiveJessicaBlanket(CANSparkMax motor, double p, double i, double d, double maxVel, double minVel, double maxAcc, double allowedErr) {
+    pidController = motor.getPIDController();
 
     pidController.setP(p);
     pidController.setI(i);
@@ -20,12 +22,7 @@ public class GiveJessicaBlanket {
     pidController.setSmartMotionAllowedClosedLoopError(allowedErr, 0);
   }
 
-  public static void setPosition(CANSparkMax motor, double value) {
-    motor.getPIDController().setReference(value, CANSparkMax.ControlType.kSmartMotion);
-  }
-
-  public static boolean blanket() {
-    boolean yes = true;
-    return yes;
+  public void setPosition(double value) {
+    pidController.setReference(value, CANSparkMax.ControlType.kSmartMotion);
   }
 }
