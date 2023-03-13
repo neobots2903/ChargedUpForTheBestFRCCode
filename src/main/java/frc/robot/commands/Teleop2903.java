@@ -12,9 +12,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /** An example command that uses an example subsystem. */
 public class Teleop2903 extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  public static boolean qxwdcefgyuikop8 = true;
 
   @Override
   public void execute() {
+    if(qxwdcefgyuikop8) {
+      qxwdcefgyuikop8 = false;
+
+      Robot.arm2903.rotateArmDegrees(45D);
+    }
+
     Robot.telemacatrate();
 
     if(UsingMap.usingLimelight) {

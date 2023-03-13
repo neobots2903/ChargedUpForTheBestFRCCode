@@ -417,7 +417,4 @@
                 "linuxx86-64",
                 "osxuniversal"
             ],
-            "simMode": "swsim"
-        }
-    ]
-}
+            "simMode": "swsim"}]}

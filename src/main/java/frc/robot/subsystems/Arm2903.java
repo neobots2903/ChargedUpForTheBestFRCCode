@@ -35,7 +35,7 @@ public class Arm2903 {
     motorArmRotate.set(speed);
   }
 
-  public void rotateArmDegrees(int degrees) {
+  public void rotateArmDegrees(double degrees) {
     pidControllerArmRotate.setPosition(degrees / 360 * TICKS_PER_REVOLUTIONS * ARM_ROTATE_GEAR_RATIO);
   }
 }
