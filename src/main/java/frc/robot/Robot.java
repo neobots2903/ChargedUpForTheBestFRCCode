@@ -11,8 +11,11 @@ import frc.robot.subsystems.Claw2903;
 import frc.robot.subsystems.Drive2903;
 import frc.robot.subsystems.Limelight2903;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.SPI;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -27,6 +30,7 @@ public class Robot extends TimedRobot {
     public static Arm2903 arm2903;
     public static Claw2903 claw2903;
     public static Drive2903 drive2903;
+    public static AHRS navX = new AHRS(SPI.Port.kMXP);
     public static Joystick driveJoy;
     public static Joystick opJoy;
     public static UsbCamera camera; 
@@ -108,30 +112,5 @@ public class Robot extends TimedRobot {
         try {
             Thread.sleep((long) (seconds * 1000));
         } catch(InterruptedException exc) {}
-    }
-
-    public static void telemacatrate() {
-        // if(UsingMap.usingDrive) {
-        //     SmartDashboard.putNumber("MotorDriveFrontLeft", drive2903.motorDriveFrontLeft.getMotorTemperature());
-        //     SmartDashboard.putNumber("MotorDriveFrontRight", drive2903.motorDriveFrontLeft.getMotorTemperature());
-        //     SmartDashboard.putNumber("MotorDriveBackLeft", drive2903.motorDriveFrontLeft.getMotorTemperature());
-        //     SmartDashboard.putNumber("MotorDriveBackRight", drive2903.motorDriveFrontLeft.getMotorTemperature());
-        // }
-
-        // if(UsingMap.usingClaw) {
-        //     SmartDashboard.putNumber("MotorClawOpener", claw2903.motorClawOpener.getMotorTemperature());
-        //     SmartDashboard.putNumber("MotorClawSucker", claw2903.motorClawSucker.getMotorTemperature());
-        //     SmartDashboard.putNumber("MotorClawFlip", claw2903.motorClawFlip.getMotorTemperature());
-        // }
-
-        if(UsingMap.usingClaw) {
-            //System.out.println("ClawActuatorMotor: " + Robot.claw2903.motorClawOpener.getEncoder().getPosition());
-        }
-        
-        if(UsingMap.usingArm) {
-            //Robot.arm2903.motorArmRotate.setIdleMode(IdleMode.kCoast);
-            //System.out.println("Rotate: " + Robot.arm2903.motorArmRotate.getEncoder().getPosition());
-            //System.out.println("Extend: " + Robot.arm2903.motorArmExtend.getEncoder().getPosition());
-        }
     }
 }

@@ -17,7 +17,7 @@ public class Auto2903 extends CommandBase {
   @Override
   public void execute() {
     System.out.println("Auto executing");
-    Robot.drive2903.arcadeDriveSeconds(0.5, 0, 1);
+    Robot.drive2903.trapezoidalDriveSeconds(0.5, 0, 1);
 
     // Robot.limelight2903.setPipeline(Limelight2903.pipelineType.APRIL_TAG);
     
@@ -25,7 +25,7 @@ public class Auto2903 extends CommandBase {
     //   Robot.drive2903.arcadeDrive(0, Math.signum(Robot.limelight2903.getXAxis()) * 0.25);
     // }
     
-    // Robot.drive2903.arcadeDrive(0.1, 0);
+    // Robot.drive2903.arcadeDrive(0.1, 0); 
 
     // while(Robot.limelight2903.getArea() < 25) {
     //   // Wait for robot to get close to april tag

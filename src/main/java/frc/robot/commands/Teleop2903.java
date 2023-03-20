@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import frc.robot.JoystickMap;
 import frc.robot.Robot;
 import frc.robot.UsingMap;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -16,13 +15,11 @@ public class Teleop2903 extends CommandBase {
 
   @Override
   public void execute() {
-    if(qxwdcefgyuikop8) {
-      qxwdcefgyuikop8 = false;
+    // Robot.navX.getYaw() and Robot.navX.getAngle() is rotation over X axis
+    // Robot.navX.getPitch() is rotation over Y axis
+    // ? is rotation over z axis
 
-      Robot.arm2903.rotateArmDegrees(45D);
-    }
-
-    Robot.telemacatrate();
+    System.out.println(Robot.arm2903.motorArmRotate.getEncoder().getPosition());
 
     if(UsingMap.usingLimelight) {
       Robot.limelight2903.getArea();
@@ -32,16 +29,23 @@ public class Teleop2903 extends CommandBase {
     }
 
     if(UsingMap.usingDrive) {
-      Robot.drive2903.trapezoidalArcadeDrive(-Robot.driveJoy.getY(), -Robot.driveJoy.getX());
+      // double x = Robot.driveJoy.getX();
+      // double y = -Robot.driveJoy.getY();
 
-      /* Logitech Dual Action
-       * A: 2
-       * B: 3
-       * 
-       * Controller()
-       * A: 1
-       * B: 2
-       */
+      // double deadband = 0.01;
+      // if(Math.abs(x) < deadband) x = 0;
+      // if(Math.abs(y) < deadband) y = 0;
+
+      // double theta = Math.toDegrees(Math.atan(y / x));
+      // if(theta < 0) theta += 180;
+      // if(y < 0) theta += 180;
+      // if(theta == -0) theta = 180;
+
+      // System.out.println(theta + " " + Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+      // Robot.drive2903.headlessDrive(theta);
+
+      Robot.drive2903.trapezoidalDrive(-Robot.driveJoy.getY(), -Robot.driveJoy.getX());
+
       if(Robot.driveJoy.getRawButton(1)) {
         System.out.println("Coast mode");
         Robot.drive2903.turnOnBrakes(false);
@@ -57,11 +61,11 @@ public class Teleop2903 extends CommandBase {
       double power = 0;
       double speed = 0.3;
 
-      if(Robot.opJoy.getRawButton(JoystickMap.buttonRB)) {
+      if(Robot.opJoy.getRawButton(6)) {
         power = -speed;
       }
 
-      if(Robot.opJoy.getRawButton(JoystickMap.buttonLB)) {
+      if(Robot.opJoy.getRawButton(5)) {
         power = speed;
       }
 
@@ -69,8 +73,8 @@ public class Teleop2903 extends CommandBase {
     }
 
     if(UsingMap.usingArm) {
-      Robot.arm2903.motorArmRotate.set(Robot.opJoy.getY());
-      Robot.arm2903.motorArmExtend.set(Robot.opJoy.getRawAxis(4) * 0.5);
+      Robot.arm2903.motorArmExtend.set(Robot.opJoy.getRawAxis(2));
+      Robot.arm2903.rotateArm(Robot.opJoy.getY());
     }
   }
 

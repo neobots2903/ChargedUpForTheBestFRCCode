@@ -10,6 +10,9 @@ import frc.robot.RobotMap;
 public class Drive2903 {
   public static final long SLEEP_TIME_MILLIS = 5;
   public static final double AMOUNT = 0.01;
+  public static final double DRIVE_REDUCTION = 8.45;
+  public static final double DRIVE_WHEEL_SIZE_INCHES = 6;
+  public static final double TICKS_PER_REVOLUTION = 42;
   public double targetForwardSpeed = 0;
   public double targetRotateSpeed = 0;
   public double forwardSpeed = 0;
@@ -33,7 +36,7 @@ public class Drive2903 {
     diffDrive = new DifferentialDrive(left, right);
     diffDrive.setDeadband(0.05);
 
-    right.setInverted(true);
+    motorDriveBackRight.setInverted(true);
     
     turnOnBrakes(true);
 
@@ -56,11 +59,6 @@ public class Drive2903 {
     }.start();
   }
 
-  public void trapezoidalArcadeDrive(double forwardSpeed, double rotateSpeed) {
-    targetForwardSpeed = forwardSpeed;
-    targetRotateSpeed = rotateSpeed;
-  }
-
   public void turnOnBrakes(boolean breaksOn) {
     motorDriveFrontLeft.setIdleMode(breaksOn ? IdleMode.kBrake : IdleMode.kCoast);
     motorDriveFrontRight.setIdleMode(breaksOn ? IdleMode.kBrake : IdleMode.kCoast);
@@ -68,8 +66,18 @@ public class Drive2903 {
     motorDriveBackRight.setIdleMode(breaksOn ? IdleMode.kBrake : IdleMode.kCoast);
   }
 
-  public void arcadeDriveSeconds(double forward, double turn, double seconds) {
-    trapezoidalArcadeDrive(forward, turn);
+  public void trapezoidalDrive(double forwardSpeed, double rotateSpeed) {
+    targetForwardSpeed = forwardSpeed;
+    targetRotateSpeed = rotateSpeed;
+  }
+
+  public void trapezoidalDriveDistance(double forward, double turn, double inches) {
+    double ticks = DRIVE_WHEEL_SIZE_INCHES / Math.PI * TICKS_PER_REVOLUTION;
+    
+  }
+
+  public void trapezoidalDriveSeconds(double forward, double turn, double seconds) {
+    trapezoidalDrive(forward, turn);
 
     try {
       Thread.sleep((long) (seconds * 1000));
