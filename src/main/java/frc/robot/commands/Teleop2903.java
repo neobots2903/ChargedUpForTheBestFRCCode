@@ -6,20 +6,24 @@ package frc.robot.commands;
 
 import frc.robot.Robot;
 import frc.robot.UsingMap;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class Teleop2903 extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  public static boolean qxwdcefgyuikop8 = true;
 
   @Override
   public void execute() {
     // Robot.navX.getYaw() and Robot.navX.getAngle() is rotation over X axis
     // Robot.navX.getPitch() is rotation over Y axis
     // ? is rotation over z axis
+    // System.out.println(Robot.arm2903.motorArmRotate.getEncoder().getPosition());
 
-    System.out.println(Robot.arm2903.motorArmRotate.getEncoder().getPosition());
+    DigitalInput input = new DigitalInput(0);
+    System.out.println(input.get());
+    input.close();
 
     if(UsingMap.usingLimelight) {
       Robot.limelight2903.getArea();
