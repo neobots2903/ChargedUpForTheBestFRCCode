@@ -85,7 +85,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousPeriodic() {
-        System.out.println("Auto");
+        drive2903.trapezoidalDrive(0.5, 0);
+        //Robot.drive2903.trapezoidalDriveSeconds(0.25, 0, 3);
     }
 
     @Override

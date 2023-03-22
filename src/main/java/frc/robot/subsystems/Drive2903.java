@@ -36,7 +36,7 @@ public class Drive2903 {
     diffDrive = new DifferentialDrive(left, right);
     diffDrive.setDeadband(0.05);
 
-    motorDriveBackRight.setInverted(true);
+    right.setInverted(true);
     
     turnOnBrakes(true);
 
