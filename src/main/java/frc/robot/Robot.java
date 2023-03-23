@@ -34,6 +34,7 @@ public class Robot extends TimedRobot {
     public static Joystick driveJoy;
     public static Joystick opJoy;
     public static UsbCamera camera; 
+    public static boolean autoRunning = false;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -85,8 +86,16 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousPeriodic() {
-        drive2903.trapezoidalDrive(0.5, 0);
-        //Robot.drive2903.trapezoidalDriveSeconds(0.25, 0, 3);
+        if(!autoRunning) {
+            autoRunning = true;
+            System.out.println("Auto running");
+            
+            drive2903.trapezoidalDrive(1, 0);
+            pause(1);
+            drive2903.trapezoidalDrive(0, 0);
+
+            System.out.println("Auto done");
+        }
     }
 
     @Override
