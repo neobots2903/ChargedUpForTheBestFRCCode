@@ -21,9 +21,9 @@ public class Teleop2903 extends CommandBase {
     // ? is rotation over z axis
     // System.out.println(Robot.arm2903.motorArmRotate.getEncoder().getPosition());
 
-    DigitalInput input = new DigitalInput(0);
-    System.out.println(input.get());
-    input.close();
+    // DigitalInput input = new DigitalInput(0);
+    // System.out.println(input.get());
+    // input.close();
 
     if(UsingMap.usingLimelight) {
       Robot.limelight2903.getArea();
@@ -62,18 +62,20 @@ public class Teleop2903 extends CommandBase {
     }
     
     if(UsingMap.usingClaw) {
-      double power = 0;
-      double speed = 0.3;
+      // double power = 0;
+      // double speed = 0.3;
 
-      if(Robot.opJoy.getRawButton(6)) {
-        power = -speed;
-      }
+      // if(Robot.opJoy.getRawButton(6)) {
+      //   power = -speed;
+      // }
 
-      if(Robot.opJoy.getRawButton(5)) {
-        power = speed;
-      }
+      // if(Robot.opJoy.getRawButton(5)) {
+      //   power = speed;
+      // }
 
-      Robot.claw2903.motorClawOpener.set(power);
+      // Robot.claw2903.motorClawOpener.set(power);
+
+      Robot.claw2903.suck(Robot.opJoy.getRawAxis(3) - Robot.opJoy.getRawAxis(2));
     }
 
     if(UsingMap.usingArm) {

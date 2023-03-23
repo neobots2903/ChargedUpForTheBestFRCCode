@@ -5,5 +5,5 @@ public class UsingMap {
     public static boolean usingLimelight = false;
     public static boolean usingDrive = true;
     public static boolean usingArm = false;
-    public static boolean usingClaw = false;
+    public static boolean usingClaw = true;
 }

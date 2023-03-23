@@ -70,9 +70,4 @@ public class Drive2903 {
     targetForwardSpeed = forwardSpeed;
     targetRotateSpeed = rotateSpeed;
   }
-
-  public void trapezoidalDriveDistance(double forward, double turn, double inches) {
-    double ticks = DRIVE_WHEEL_SIZE_INCHES / Math.PI * TICKS_PER_REVOLUTION;
-    
-  }
 }
