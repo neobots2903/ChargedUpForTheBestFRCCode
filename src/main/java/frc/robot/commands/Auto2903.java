@@ -16,9 +16,6 @@ public class Auto2903 extends CommandBase {
 
   @Override
   public void execute() {
-    System.out.println("Auto executing");
-    Robot.drive2903.trapezoidalDriveSeconds(0.5, 0, 1);
-
     // Robot.limelight2903.setPipeline(Limelight2903.pipelineType.APRIL_TAG);
     
     // while(Math.abs(Robot.limelight2903.getXAxis()) > 10) {
@@ -35,7 +32,6 @@ public class Auto2903 extends CommandBase {
     // Robot.arm2903.rotateArmDegrees(90);
     // Robot.arm2903.extendArmInches(35);
 
-    System.out.println("Auto done");
     cancel();
   }
 

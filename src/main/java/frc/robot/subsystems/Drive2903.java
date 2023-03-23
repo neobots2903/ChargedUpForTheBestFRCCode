@@ -36,7 +36,7 @@ public class Drive2903 {
     diffDrive = new DifferentialDrive(left, right);
     diffDrive.setDeadband(0.05);
 
-    right.setInverted(true);
+    motorDriveBackRight.setInverted(true);
     
     turnOnBrakes(true);
 
@@ -52,7 +52,7 @@ public class Drive2903 {
           diffDrive.arcadeDrive(forwardSpeed, rotateSpeed);
 
           try {
-          Thread.sleep(SLEEP_TIME_MILLIS);
+            Thread.sleep(SLEEP_TIME_MILLIS);
           } catch(InterruptedException exc) {}
         }
       }
@@ -74,15 +74,5 @@ public class Drive2903 {
   public void trapezoidalDriveDistance(double forward, double turn, double inches) {
     double ticks = DRIVE_WHEEL_SIZE_INCHES / Math.PI * TICKS_PER_REVOLUTION;
     
-  }
-
-  public void trapezoidalDriveSeconds(double forward, double turn, double seconds) {
-    trapezoidalDrive(forward, turn);
-
-    try {
-      Thread.sleep((long) (seconds * 1000));
-    } catch (InterruptedException exc) {}
-
-    diffDrive.stopMotor();
   }
 }
