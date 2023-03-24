@@ -6,24 +6,19 @@ package frc.robot.commands;
 
 import frc.robot.Robot;
 import frc.robot.UsingMap;
-
-import edu.wpi.first.wpilibj.DigitalInput;
+import frc.robot.subsystems.Claw2903.ClawPosition;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class Teleop2903 extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-
+  
   @Override
   public void execute() {
     // Robot.navX.getYaw() and Robot.navX.getAngle() is rotation over X axis
     // Robot.navX.getPitch() is rotation over Y axis
     // ? is rotation over z axis
     // System.out.println(Robot.arm2903.motorArmRotate.getEncoder().getPosition());
-
-    // DigitalInput input = new DigitalInput(0);
-    // System.out.println(input.get());
-    // input.close();
 
     if(UsingMap.usingLimelight) {
       Robot.limelight2903.getArea();
@@ -62,26 +57,32 @@ public class Teleop2903 extends CommandBase {
     }
     
     if(UsingMap.usingClaw) {
-      // double power = 0;
-      // double speed = 0.3;
+      Robot.claw2903.suck(Robot.opJoy.getRawAxis(2) - Robot.opJoy.getRawAxis(3));
 
-      // if(Robot.opJoy.getRawButton(6)) {
-      //   power = -speed;
-      // }
-
-      // if(Robot.opJoy.getRawButton(5)) {
-      //   power = speed;
-      // }
-
-      // Robot.claw2903.motorClawOpener.set(power);
-
-      Robot.claw2903.suck(Robot.opJoy.getRawAxis(3) - Robot.opJoy.getRawAxis(2));
+      //System.out.println(Robot.claw2903.motorClawOpener.getEncoder().getPosition());
+      
+      if(Robot.opJoy.getRawButton(1)) Robot.claw2903.openClaw(ClawPosition.CUBE);
+      if(Robot.opJoy.getRawButton(2)) Robot.claw2903.openClaw(ClawPosition.CONE);
+      if(Robot.opJoy.getRawButton(4)) Robot.claw2903.openClaw(ClawPosition.CONE_SQUEEZE);
+      if(
+        !Robot.opJoy.getRawButton(1) &&
+        !Robot.opJoy.getRawButton(2) &&
+        !Robot.opJoy.getRawButton(4)
+      ) Robot.claw2903.motorClawOpener.stopMotor();
     }
 
     if(UsingMap.usingArm) {
-      Robot.arm2903.motorArmExtend.set(Robot.opJoy.getRawAxis(2));
-      Robot.arm2903.rotateArm(Robot.opJoy.getY());
+      double extendSpeed = Robot.opJoy.getRawAxis(4);
+      Robot.arm2903.motorArmExtend.set(extendSpeed);
+      if(Math.abs(extendSpeed) < 0.01) Robot.arm2903.motorArmExtend.stopMotor();
+
+      System.out.println(Robot.arm2903.motorArmRotate.getEncoder().getPosition());
+      Robot.arm2903.motorArmRotate.set(-Robot.opJoy.getY());
     }
+
+    // AnalogInput input = new AnalogInput(0);
+    // System.out.println(input.getValue());
+    // input.close();
   }
 
   @Override

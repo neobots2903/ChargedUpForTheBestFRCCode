@@ -13,15 +13,11 @@ public class Arm2903 {
   public static final double speedUp = -1;
   public CANSparkMax motorArmExtend;
   public CANSparkMax motorArmRotate;
-  public GiveJessicaBlanket pidControllerArmExtend;
-  public GiveJessicaBlanket pidControllerArmRotate;
 
   public Arm2903() {
     motorArmExtend = new CANSparkMax(RobotMap.motorArmExtend, MotorType.kBrushless);
     motorArmRotate = new CANSparkMax(RobotMap.motorArmRotate, MotorType.kBrushless);
-    pidControllerArmExtend = new GiveJessicaBlanket(motorArmExtend, 0, 0, 0, 0, 0, 0, 0);
-    pidControllerArmRotate = new GiveJessicaBlanket(motorArmRotate, 0, 0, 0, 0, 0, 0, 0);
-  
+    
     new Thread() {
       @Override
       public void run() {
@@ -35,11 +31,16 @@ public class Arm2903 {
   }
 
   public void extendArm(double speed) {
+    System.out.println(speed);
     motorArmRotate.set(speed);
   }
 
+  public void extendArmTicks(double ticks) {
+    
+  }
+
   public void extendArmInches(int inches) {
-    pidControllerArmExtend.setPosition(inches / Math.PI * GEAR_DIAMETER * TICKS_PER_REVOLUTIONS * ARM_EXTEND_GEAR_RATIO);
+    extendArmTicks(inches / Math.PI * GEAR_DIAMETER * TICKS_PER_REVOLUTIONS * ARM_EXTEND_GEAR_RATIO);
   }
 
   public void rotateArm(double speed) {
@@ -62,7 +63,7 @@ public class Arm2903 {
   }
 
   public void rotateArmDegrees(double degrees) {
-    pidControllerArmRotate.setPosition(degrees / 360 * TICKS_PER_REVOLUTIONS * ARM_ROTATE_GEAR_RATIO);
+    // setPosition(degrees / 360 * TICKS_PER_REVOLUTIONS * ARM_ROTATE_GEAR_RATIO);
   }
 
   public boolean limitRotateBottom() {
