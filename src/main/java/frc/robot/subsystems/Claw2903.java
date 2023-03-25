@@ -28,7 +28,6 @@ public class Claw2903 {
             distance = clawPosition.position - motorClawOpener.getEncoder().getPosition();
             double speed = speedFrom(Math.abs(distance)) * Math.signum(distance) / 3;
             motorClawOpener.set(speed);
-            System.out.println((int) distance + " " + speed);
         }
 
         motorClawOpener.stopMotor();

@@ -7,8 +7,8 @@ public class RobotMap {
     public static final int motorDriveFrontRight = 3;//16
     public static final int motorDriveBackLeft = 4;//17
     public static final int motorDriveBackRight = 10;//18
-    public static final int motorArmRotate = 6;
-    public static final int motorArmExtend = 7;
+    public static final int motorArmRotate = 7;
+    public static final int motorArmExtend = 6;
     public static final int motorClawOpener = 9;
     public static final int motorClawSucker = 15;
 

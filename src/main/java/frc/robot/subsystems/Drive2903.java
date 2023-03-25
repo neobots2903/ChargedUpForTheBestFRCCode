@@ -38,7 +38,7 @@ public class Drive2903 {
 
     motorDriveBackRight.setInverted(true);
     
-    turnOnBrakes(true);
+    turnOnBrakes(false);
 
     new Thread() {
       @Override

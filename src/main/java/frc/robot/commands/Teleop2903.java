@@ -7,6 +7,7 @@ package frc.robot.commands;
 import frc.robot.Robot;
 import frc.robot.UsingMap;
 import frc.robot.subsystems.Claw2903.ClawPosition;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -15,11 +16,6 @@ public class Teleop2903 extends CommandBase {
   
   @Override
   public void execute() {
-    // Robot.navX.getYaw() and Robot.navX.getAngle() is rotation over X axis
-    // Robot.navX.getPitch() is rotation over Y axis
-    // ? is rotation over z axis
-    // System.out.println(Robot.arm2903.motorArmRotate.getEncoder().getPosition());
-
     if(UsingMap.usingLimelight) {
       Robot.limelight2903.getArea();
       Robot.limelight2903.seesTarget();
@@ -27,22 +23,8 @@ public class Teleop2903 extends CommandBase {
       Robot.limelight2903.getYAxis();
     }
 
+
     if(UsingMap.usingDrive) {
-      // double x = Robot.driveJoy.getX();
-      // double y = -Robot.driveJoy.getY();
-
-      // double deadband = 0.01;
-      // if(Math.abs(x) < deadband) x = 0;
-      // if(Math.abs(y) < deadband) y = 0;
-
-      // double theta = Math.toDegrees(Math.atan(y / x));
-      // if(theta < 0) theta += 180;
-      // if(y < 0) theta += 180;
-      // if(theta == -0) theta = 180;
-
-      // System.out.println(theta + " " + Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
-      // Robot.drive2903.headlessDrive(theta);
-
       Robot.drive2903.trapezoidalDrive(-Robot.driveJoy.getY(), -Robot.driveJoy.getX());
 
       if(Robot.driveJoy.getRawButton(1)) {
@@ -58,8 +40,6 @@ public class Teleop2903 extends CommandBase {
     
     if(UsingMap.usingClaw) {
       Robot.claw2903.suck(Robot.opJoy.getRawAxis(2) - Robot.opJoy.getRawAxis(3));
-
-      //System.out.println(Robot.claw2903.motorClawOpener.getEncoder().getPosition());
       
       if(Robot.opJoy.getRawButton(1)) Robot.claw2903.openClaw(ClawPosition.CUBE);
       if(Robot.opJoy.getRawButton(2)) Robot.claw2903.openClaw(ClawPosition.CONE);
@@ -72,17 +52,20 @@ public class Teleop2903 extends CommandBase {
     }
 
     if(UsingMap.usingArm) {
-      double extendSpeed = Robot.opJoy.getRawAxis(4);
-      Robot.arm2903.motorArmExtend.set(extendSpeed);
-      if(Math.abs(extendSpeed) < 0.01) Robot.arm2903.motorArmExtend.stopMotor();
+      // double extendSpeed = Robot.opJoy.getRawAxis(4);
+      // Robot.arm2903.motorArmExtend.set(extendSpeed);
+      // if(Math.abs(extendSpeed) < 0.01) Robot.arm2903.motorArmExtend.stopMotor();
 
-      System.out.println(Robot.arm2903.motorArmRotate.getEncoder().getPosition());
-      Robot.arm2903.motorArmRotate.set(-Robot.opJoy.getY());
+      // double rotateSpeed = -Robot.opJoy.getRawAxis(1);
+      // Robot.arm2903.motorArmRotate.set(rotateSpeed);
+      // System.out.println("rotateSpeed: " + rotateSpeed);
+
+      Robot.arm2903.rotateArm(-Robot.opJoy.getY());
     }
 
-    // AnalogInput input = new AnalogInput(0);
-    // System.out.println(input.getValue());
-    // input.close();
+    // DigitalInput input2 = new DigitalInput(2);
+    // System.out.println("DIO 2: " + input2.get());
+    // input2.close();
   }
 
   @Override

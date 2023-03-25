@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.RobotMap;
 
 public class Arm2903 {
@@ -13,21 +15,15 @@ public class Arm2903 {
   public static final double speedUp = -1;
   public CANSparkMax motorArmExtend;
   public CANSparkMax motorArmRotate;
+  public DigitalInput limitRotateBottom;
+  public DigitalInput limitRotateTop;
 
   public Arm2903() {
     motorArmExtend = new CANSparkMax(RobotMap.motorArmExtend, MotorType.kBrushless);
     motorArmRotate = new CANSparkMax(RobotMap.motorArmRotate, MotorType.kBrushless);
-    
-    new Thread() {
-      @Override
-      public void run() {
-        while(true) {
-          if(limitRotateBottom() || limitRotateTop()) {
-            motorArmRotate.stopMotor();
-          }
-        }
-      }
-    }.start();
+
+    limitRotateBottom = new DigitalInput(0);
+    limitRotateTop = new DigitalInput(1);
   }
 
   public void extendArm(double speed) {
@@ -44,21 +40,22 @@ public class Arm2903 {
   }
 
   public void rotateArm(double speed) {
-    if(!limitRotateBottom() && !limitRotateTop()) {
-      motorArmRotate.set(speed);
+    String message = speed + "";
+
+    if((limitRotateBottomOpen() && limitRotateTopOpen()) || Math.abs(speed) < 0.05) {
+      if(Math.abs(speed) < 0.05) motorArmRotate.stopMotor(); else motorArmRotate.set(speed);
+      System.out.println(message);
       return;
     }
 
-    if(limitRotateBottom()) {
-      if(Math.signum(speed) == Math.signum(speedUp)) {
-        motorArmRotate.set(speed);
-      }
+    if(limitRotateBottomOpen() && Math.signum(speed) == Math.signum(speedUp)) {
+      motorArmRotate.set(speed);
+      System.out.println(message);
     }
 
-    if(limitRotateTop()) {
-      if(Math.signum(speed) == -Math.signum(speedUp)) {
-        motorArmRotate.set(speed);
-      }
+    if(limitRotateTopOpen() && Math.signum(speed) == -Math.signum(speedUp)) {
+      motorArmRotate.set(speed);
+      System.out.println(message);
     }
   }
 
@@ -66,11 +63,11 @@ public class Arm2903 {
     // setPosition(degrees / 360 * TICKS_PER_REVOLUTIONS * ARM_ROTATE_GEAR_RATIO);
   }
 
-  public boolean limitRotateBottom() {
-    return false;
+  public boolean limitRotateBottomOpen() {
+    return limitRotateBottom.get();
   }
 
-  public boolean limitRotateTop() {
-    return false;
+  public boolean limitRotateTopOpen() {
+    return limitRotateTop.get();
   }
 }
