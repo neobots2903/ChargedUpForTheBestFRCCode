@@ -39,8 +39,11 @@ public class Teleop2903 extends CommandBase {
     }
     
     if(UsingMap.usingClaw) {
-      Robot.claw2903.suck(Robot.opJoy.getRawAxis(2) - Robot.opJoy.getRawAxis(3));
-      
+      System.out.println(Robot.claw2903.limitClawHoldingOpen());
+      double suckSpeed = Robot.opJoy.getRawAxis(2) - Robot.opJoy.getRawAxis(3);
+      Robot.claw2903.suck(suckSpeed);
+      if(!Robot.claw2903.limitClawHoldingOpen() && suckSpeed < 0) Robot.claw2903.suck(0);
+
       if(Robot.opJoy.getRawButton(1)) Robot.claw2903.openClaw(ClawPosition.CUBE);
       if(Robot.opJoy.getRawButton(2)) Robot.claw2903.openClaw(ClawPosition.CONE);
       if(Robot.opJoy.getRawButton(4)) Robot.claw2903.openClaw(ClawPosition.CONE_SQUEEZE);
@@ -56,16 +59,10 @@ public class Teleop2903 extends CommandBase {
       // Robot.arm2903.motorArmExtend.set(extendSpeed);
       // if(Math.abs(extendSpeed) < 0.01) Robot.arm2903.motorArmExtend.stopMotor();
 
-      // double rotateSpeed = -Robot.opJoy.getRawAxis(1);
-      // Robot.arm2903.motorArmRotate.set(rotateSpeed);
-      // System.out.println("rotateSpeed: " + rotateSpeed);
+      // Robot.arm2903.motorArmRotate.set(-Robot.opJoy.getRawAxis(1));
 
       Robot.arm2903.rotateArm(-Robot.opJoy.getY());
     }
-
-    // DigitalInput input2 = new DigitalInput(2);
-    // System.out.println("DIO 2: " + input2.get());
-    // input2.close();
   }
 
   @Override

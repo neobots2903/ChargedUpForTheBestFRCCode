@@ -40,22 +40,17 @@ public class Arm2903 {
   }
 
   public void rotateArm(double speed) {
-    String message = speed + "";
-
     if((limitRotateBottomOpen() && limitRotateTopOpen()) || Math.abs(speed) < 0.05) {
       if(Math.abs(speed) < 0.05) motorArmRotate.stopMotor(); else motorArmRotate.set(speed);
-      System.out.println(message);
       return;
     }
 
     if(limitRotateBottomOpen() && Math.signum(speed) == Math.signum(speedUp)) {
       motorArmRotate.set(speed);
-      System.out.println(message);
     }
 
     if(limitRotateTopOpen() && Math.signum(speed) == -Math.signum(speedUp)) {
       motorArmRotate.set(speed);
-      System.out.println(message);
     }
   }
 

@@ -5,15 +5,18 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.RobotMap;
 
 public class Claw2903 {
     public CANSparkMax motorClawOpener;
-    public TalonSRX motorClawSucker;
+    public TalonSRX motorClawSucker;// Negative power makes it suck in
+    public DigitalInput limitClawHolding;
     
     public Claw2903() {
         motorClawOpener = new CANSparkMax(RobotMap.motorClawOpener, MotorType.kBrushless);
         motorClawSucker = new TalonSRX(RobotMap.motorClawSucker);
+        limitClawHolding = new DigitalInput(2);
     }
 
     public void suck(double speed) {
@@ -35,6 +38,10 @@ public class Claw2903 {
 
     public static double speedFrom(double distance) {
         return 1 - (1 / (distance + 1));
+    }
+
+    public boolean limitClawHoldingOpen() {
+        return limitClawHolding.get();
     }
 
     public static enum ClawPosition {
