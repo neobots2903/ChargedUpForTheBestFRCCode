@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.Auto2903;
 import frc.robot.commands.Teleop2903;
 import frc.robot.subsystems.Arm2903;
 import frc.robot.subsystems.Claw2903;

@@ -39,29 +39,28 @@ public class Teleop2903 extends CommandBase {
     }
     
     if(UsingMap.usingClaw) {
-      System.out.println(Robot.claw2903.limitClawHoldingOpen());
-      double suckSpeed = Robot.opJoy.getRawAxis(2) - Robot.opJoy.getRawAxis(3);
-      Robot.claw2903.suck(suckSpeed);
-      if(!Robot.claw2903.limitClawHoldingOpen() && suckSpeed < 0) Robot.claw2903.suck(0);
+      // double suckSpeed = Robot.opJoy.getRawAxis(2) - Robot.opJoy.getRawAxis(3);
+      // Robot.claw2903.suck(suckSpeed);
+      // if(!Robot.claw2903.limitClawHoldingOpen() && suckSpeed < 0) Robot.claw2903.suck(0);
 
-      if(Robot.opJoy.getRawButton(1)) Robot.claw2903.openClaw(ClawPosition.CUBE);
-      if(Robot.opJoy.getRawButton(2)) Robot.claw2903.openClaw(ClawPosition.CONE);
-      if(Robot.opJoy.getRawButton(4)) Robot.claw2903.openClaw(ClawPosition.CONE_SQUEEZE);
-      if(
-        !Robot.opJoy.getRawButton(1) &&
-        !Robot.opJoy.getRawButton(2) &&
-        !Robot.opJoy.getRawButton(4)
-      ) Robot.claw2903.motorClawOpener.stopMotor();
+      // if(Robot.opJoy.getRawButton(1)) Robot.claw2903.openClaw(ClawPosition.CUBE);
+      // if(Robot.opJoy.getRawButton(2)) Robot.claw2903.openClaw(ClawPosition.CONE);
+      // if(Robot.opJoy.getRawButton(4)) Robot.claw2903.openClaw(ClawPosition.CONE_SQUEEZE);
+      // if(
+      //   !Robot.opJoy.getRawButton(1) &&
+      //   !Robot.opJoy.getRawButton(2) &&
+      //   !Robot.opJoy.getRawButton(4)
+      // ) Robot.claw2903.motorClawOpener.stopMotor();
+
+      Robot.claw2903.motorClawOpener.set((Robot.opJoy.getRawAxis(2) - Robot.opJoy.getRawAxis(3)) / 5);
     }
 
     if(UsingMap.usingArm) {
-      // double extendSpeed = Robot.opJoy.getRawAxis(4);
-      // Robot.arm2903.motorArmExtend.set(extendSpeed);
-      // if(Math.abs(extendSpeed) < 0.01) Robot.arm2903.motorArmExtend.stopMotor();
+      double extendSpeed = Robot.opJoy.getRawAxis(4) / 4;
+      Robot.arm2903.motorArmExtend.set(extendSpeed);
+      if(Math.abs(extendSpeed) < 0.01) Robot.arm2903.motorArmExtend.stopMotor();
 
-      // Robot.arm2903.motorArmRotate.set(-Robot.opJoy.getRawAxis(1));
-
-      Robot.arm2903.rotateArm(-Robot.opJoy.getY());
+      Robot.arm2903.rotateArm(-Robot.opJoy.getY() / 4);
     }
   }
 

@@ -31,14 +31,6 @@ public class Arm2903 {
     motorArmRotate.set(speed);
   }
 
-  public void extendArmTicks(double ticks) {
-    
-  }
-
-  public void extendArmInches(int inches) {
-    extendArmTicks(inches / Math.PI * GEAR_DIAMETER * TICKS_PER_REVOLUTIONS * ARM_EXTEND_GEAR_RATIO);
-  }
-
   public void rotateArm(double speed) {
     if((limitRotateBottomOpen() && limitRotateTopOpen()) || Math.abs(speed) < 0.05) {
       if(Math.abs(speed) < 0.05) motorArmRotate.stopMotor(); else motorArmRotate.set(speed);
@@ -52,10 +44,6 @@ public class Arm2903 {
     if(limitRotateTopOpen() && Math.signum(speed) == -Math.signum(speedUp)) {
       motorArmRotate.set(speed);
     }
-  }
-
-  public void rotateArmDegrees(double degrees) {
-    // setPosition(degrees / 360 * TICKS_PER_REVOLUTIONS * ARM_ROTATE_GEAR_RATIO);
   }
 
   public boolean limitRotateBottomOpen() {
