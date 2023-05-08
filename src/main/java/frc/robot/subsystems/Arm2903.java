@@ -20,14 +20,13 @@ public class Arm2903 {
 
   public Arm2903() {
     motorArmExtend = new CANSparkMax(RobotMap.motorArmExtend, MotorType.kBrushless);
-    motorArmRotate = new CANSparkMax(RobotMap.motorArmRotate, MotorType.kBrushless);
+    //motorArmRotate = new CANSparkMax(RobotMap.motorArmRotate, MotorType.kBrushless);
 
     limitRotateBottom = new DigitalInput(0);
     limitRotateTop = new DigitalInput(1);
   }
 
   public void extendArm(double speed) {
-    System.out.println(speed);
     motorArmRotate.set(speed);
   }
 

@@ -7,7 +7,11 @@ package frc.robot.commands;
 import frc.robot.Robot;
 import frc.robot.UsingMap;
 import frc.robot.subsystems.Claw2903.ClawPosition;
+
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -16,6 +20,7 @@ public class Teleop2903 extends CommandBase {
   
   @Override
   public void execute() {
+
     if(UsingMap.usingLimelight) {
       Robot.limelight2903.getArea();
       Robot.limelight2903.seesTarget();
@@ -39,8 +44,11 @@ public class Teleop2903 extends CommandBase {
     }
     
     if(UsingMap.usingClaw) {
-      // double suckSpeed = Robot.opJoy.getRawAxis(2) - Robot.opJoy.getRawAxis(3);
-      // Robot.claw2903.suck(suckSpeed);
+      double suckSpeed = 0;
+      if(Robot.opJoy.getRawButton(5)) suckSpeed--;
+      if(Robot.opJoy.getRawButton(6)) suckSpeed++;
+      Robot.claw2903.suck(suckSpeed);
+
       // if(!Robot.claw2903.limitClawHoldingOpen() && suckSpeed < 0) Robot.claw2903.suck(0);
 
       // if(Robot.opJoy.getRawButton(1)) Robot.claw2903.openClaw(ClawPosition.CUBE);
@@ -52,15 +60,15 @@ public class Teleop2903 extends CommandBase {
       //   !Robot.opJoy.getRawButton(4)
       // ) Robot.claw2903.motorClawOpener.stopMotor();
 
-      Robot.claw2903.motorClawOpener.set((Robot.opJoy.getRawAxis(2) - Robot.opJoy.getRawAxis(3)) / 5);
+      double openSpeed = (Robot.opJoy.getRawAxis(2) - Robot.opJoy.getRawAxis(3)) / 5;
+      Robot.claw2903.motorClawOpener.set(openSpeed);
     }
 
     if(UsingMap.usingArm) {
       double extendSpeed = Robot.opJoy.getRawAxis(4) / 4;
       Robot.arm2903.motorArmExtend.set(extendSpeed);
       if(Math.abs(extendSpeed) < 0.01) Robot.arm2903.motorArmExtend.stopMotor();
-
-      Robot.arm2903.rotateArm(-Robot.opJoy.getY() / 4);
+      //Robot.arm2903.rotateArm(-Robot.opJoy.getY() / 4);
     }
   }
 

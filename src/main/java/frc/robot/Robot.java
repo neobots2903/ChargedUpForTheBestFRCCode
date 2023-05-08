@@ -86,8 +86,20 @@ public class Robot extends TimedRobot {
         if(!autoRunning) {
             autoRunning = true;
             System.out.println("Auto running");
+
+            arm2903.rotateArm(-0.25);
+            pause(3);
+            arm2903.rotateArm(0);
+
+            pause(2);
+
+            claw2903.motorClawOpener.set(0.2);
+            pause(1.5);
+            claw2903.motorClawOpener.set(0);
+
+            pause(2);
             
-            drive2903.trapezoidalDrive(1, 0);
+            drive2903.trapezoidalDrive(-1, 0);
             pause(1);
             drive2903.trapezoidalDrive(0, 0);
 

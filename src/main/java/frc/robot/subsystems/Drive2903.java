@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import frc.robot.RobotMap;
 
 public class Drive2903 {
-  public static final long SLEEP_TIME_MILLIS = 5;
+  public static final long SLEEP_TIME_MILLIS = 8;
   public static final double AMOUNT = 0.01;
   public static final double DRIVE_REDUCTION = 8.45;
   public static final double DRIVE_WHEEL_SIZE_INCHES = 6;
