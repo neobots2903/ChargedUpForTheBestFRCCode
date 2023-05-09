@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -20,7 +21,9 @@ public class Arm2903 {
 
   public Arm2903() {
     motorArmExtend = new CANSparkMax(RobotMap.motorArmExtend, MotorType.kBrushless);
-    //motorArmRotate = new CANSparkMax(RobotMap.motorArmRotate, MotorType.kBrushless);
+    motorArmRotate = new CANSparkMax(RobotMap.motorArmRotate, MotorType.kBrushless);
+
+    motorArmExtend.setIdleMode(IdleMode.kBrake);
 
     limitRotateBottom = new DigitalInput(0);
     limitRotateTop = new DigitalInput(1);

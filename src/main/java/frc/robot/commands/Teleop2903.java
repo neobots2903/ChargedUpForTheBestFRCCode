@@ -4,22 +4,55 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.UsingMap;
 import frc.robot.subsystems.Claw2903.ClawPosition;
 
-import com.revrobotics.CANSparkMax;
-
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
 /** An example command that uses an example subsystem. */
 public class Teleop2903 extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+
+  public static boolean shooting = false;
   
   @Override
   public void execute() {
+    // Allows user to rotate robot to aim, pivot arm to aim and shoot
+    if(UsingMap.kidMode) {
+      //Robot.drive2903.trapezoidalDrive(0, -Robot.driveJoy.getX() / 10);
+      Robot.arm2903.rotateArm(-Robot.driveJoy.getRawAxis(5));
+
+      System.out.println(Robot.claw2903.motorClawOpener.getEncoder().getPosition());
+      Robot.claw2903.motorClawOpener.set(Robot.driveJoy.getX());
+      Robot.claw2903.suck(-Robot.driveJoy.getRawAxis(3));
+      
+      // // Shoot
+      // if(!shooting && Robot.driveJoy.getRawAxis(3) == 1) {
+      //   shooting = true;
+      //   System.out.println("Shooting");
+
+      //   new Thread() {
+      //     @Override
+      //     public void run() {
+      //       // Start flywheels
+      //       Robot.claw2903.suck(1);
+      //       // Unextend linear actuator to load ball
+      //       Robot.claw2903.openClaw(ClawPosition.UNEXTENDED);
+      //       // Wait for ball to fall into chamber
+      //       Robot.pause(3);
+      //       // Extend linear actuator to shoot ball
+      //       Robot.claw2903.openClaw(ClawPosition.EXTENDED);
+      //       // Stop flywheels
+      //       Robot.claw2903.suck(0);
+
+      //       shooting = false;
+      //       System.out.println("Shot");
+      //     }
+      //   }.start();
+      // }
+      
+      return;
+    }
 
     if(UsingMap.usingLimelight) {
       Robot.limelight2903.getArea();

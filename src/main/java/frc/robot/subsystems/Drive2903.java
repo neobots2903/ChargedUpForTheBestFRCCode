@@ -8,8 +8,9 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import frc.robot.RobotMap;
 
 public class Drive2903 {
-  public static final long SLEEP_TIME_MILLIS = 8;
-  public static final double AMOUNT = 0.01;
+  public static final long SLEEP_TIME_MILLIS = 10;
+  public static final double AMOUNT_SPEED_UP = 0.01;
+  public static final double AMOUNT_SPEED_DOWN = 0.01;
   public static final double DRIVE_REDUCTION = 8.45;
   public static final double DRIVE_WHEEL_SIZE_INCHES = 6;
   public static final double TICKS_PER_REVOLUTION = 42;
@@ -44,10 +45,10 @@ public class Drive2903 {
       @Override
       public void run() {
         while(true) {
-          if(forwardSpeed < targetForwardSpeed) forwardSpeed += AMOUNT;
-          if(forwardSpeed > targetForwardSpeed) forwardSpeed -= AMOUNT;
-          if(rotateSpeed < targetRotateSpeed) rotateSpeed += AMOUNT;
-          if(rotateSpeed > targetRotateSpeed) rotateSpeed -= AMOUNT;
+          if(forwardSpeed < targetForwardSpeed) forwardSpeed += AMOUNT_SPEED_UP;
+          if(forwardSpeed > targetForwardSpeed) forwardSpeed -= AMOUNT_SPEED_DOWN;
+          if(rotateSpeed < targetRotateSpeed) rotateSpeed += AMOUNT_SPEED_UP;
+          if(rotateSpeed > targetRotateSpeed) rotateSpeed -= AMOUNT_SPEED_DOWN;
 
           diffDrive.arcadeDrive(forwardSpeed, rotateSpeed);
 

@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -17,6 +18,7 @@ public class Claw2903 {
         motorClawOpener = new CANSparkMax(RobotMap.motorClawOpener, MotorType.kBrushless);
         motorClawSucker = new TalonSRX(RobotMap.motorClawSucker);
         limitClawHolding = new DigitalInput(2);
+        motorClawOpener.setIdleMode(IdleMode.kBrake);
     }
 
     public void suck(double speed) {
@@ -47,7 +49,9 @@ public class Claw2903 {
     public static enum ClawPosition {
         CUBE(0),
         CONE(-10),
-        CONE_SQUEEZE(-16);
+        CONE_SQUEEZE(-16),
+        EXTENDED(0),
+        UNEXTENDED(-10);
 
         public double position;
 
