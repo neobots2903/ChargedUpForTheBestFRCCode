@@ -21,31 +21,37 @@ public class Teleop2903 extends CommandBase {
   public void execute() {
     // Allows user to rotate robot to aim, pivot arm to aim and shoot
     if(UsingMap.kidMode) {
-      Robot.claw2903.openClaw(position);
-      //Robot.drive2903.trapezoidalDrive(0, -Robot.driveJoy.getX() / 10);
+      Robot.drive2903.trapezoidalDrive(0, -Robot.driveJoy.getX() / 10);
       Robot.arm2903.rotateArm(-Robot.driveJoy.getRawAxis(5));
-      
-      // Shoot
-      if(!shooting && Robot.driveJoy.getRawAxis(3) == 1) {
-        shooting = true;
-        System.out.println("Shooting");
 
-        new Thread() {
-          @Override
-          public void run() {
-            position = Claw2903.ClawPosition.UNEXTENDED;
-            Robot.pause(0.1);
-            position = Claw2903.ClawPosition.EXTENDED;
-            Robot.pause(4);
-            Robot.claw2903.suck(-1);
-            Robot.pause(1.5);
-            Robot.claw2903.suck(0);
+      if(false) {
+        Robot.claw2903.suck(-Robot.driveJoy.getRawAxis(3));
+        Robot.claw2903.motorClawOpener.set(-Robot.driveJoy.getRawAxis(4));
+      } else {
+        Robot.claw2903.openClaw(position);
 
-            shooting = false;
-            System.out.println("Shot");
-          }
-        }.start();
-      }
+        // Shoot
+        if(!shooting && Robot.driveJoy.getRawAxis(3) == 1) {
+          shooting = true;
+          System.out.println("Shooting");
+
+          new Thread() {
+            @Override
+            public void run() {
+              position = Claw2903.ClawPosition.UNEXTENDED;
+              Robot.pause(0.1);
+              position = Claw2903.ClawPosition.EXTENDED;
+              Robot.pause(3.5);
+              Robot.claw2903.suck(-1);
+              Robot.pause(2);
+              Robot.claw2903.suck(0);
+
+              shooting = false;
+              System.out.println("Shot");
+            }
+          }.start();
+        }
+    }
       
       return;
     }

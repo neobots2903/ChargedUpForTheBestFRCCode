@@ -51,7 +51,7 @@ public class Claw2903 {
         CONE(-10),
         CONE_SQUEEZE(-16),
         EXTENDED(0),
-        UNEXTENDED(-85);
+        UNEXTENDED(-80);
 
         public double position;
 
